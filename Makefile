@@ -6,15 +6,14 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/11 09:09:34 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/11 12:25:28 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 ##### DEPENDENCIES #############################################################
 
-LIB_DIR:= libft
-LIBFT_DIR:= $(LIB_DIR)/libft
+LIBFT_DIR:= libft
 LIBFT_HEADERS:=$(LIBFT_DIR)/includes
 LIBFT_NAME:= $(LIBFT_DIR)/libft.a
 
@@ -28,8 +27,7 @@ OBJ_DIR:= obj
 
 HEADERS+= $(INC_DIR)/minishell.h
 
-SRC+= $(SRC_DIR)/param.c
-SRC+= $(SRC_DIR)/path_utils.c
+SRC+= $(SRC_DIR)/main.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
@@ -66,7 +64,7 @@ $(LIBFT_NAME): $(LIBFT_DIR)
 $(OBJ_DIR):
 	@$(MKDIR) $@
 
-$(LIB_DIR):
+$(LIBFT_DIR):
 	@$(MKDIR) $@
 
 clean:
