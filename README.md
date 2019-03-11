@@ -11,7 +11,7 @@ ou bien d'exécuter le code concerné dans le cas d'une commande
 # Day 01 #	
 	- Starting the shell loop(base)
 	- studying new functions offered by the project
-#########
+#        #
 
 # Day 02 #
 	- Initialization and copy of env variables
