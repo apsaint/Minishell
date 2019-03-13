@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/11 12:25:28 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/13 10:05:35 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ OBJ_DIR:= obj
 HEADERS+= $(INC_DIR)/minishell.h
 
 SRC+= $(SRC_DIR)/main.c
+SRC+= $(SRC_DIR)/gestion_signal.c
+SRC+= $(SRC_DIR)/gestion_env.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
