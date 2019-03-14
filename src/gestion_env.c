@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/13 11:38:03 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/13 13:59:19 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ void	free_env(t_envlist *env_list)
 {
 	free(env_list->data);
 	ft_memset(env_list, 0, sizeof(env_list));
+}
+
+int		find_env_var(char *str)
+{
+	int i;
+
+	i = 0;
+	while (i < env_list.size)
+	{
+		if (ft_strcmp(str, env_list.data[i].name) == 0)
+			return (i);
+		i++;
+	}
+	return (ENV_ERROR);
 }
 
 int		copy_venv(char **env)
