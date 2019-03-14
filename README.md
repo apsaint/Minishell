@@ -14,8 +14,6 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 # Day 02 #
 	- Initialization and copy of env variables (DONE)
 	- Implementation of struct for environmment variables (DONE)
-	- Implementing the shell exit properly (TODO)
-	- Studying error prompt (TODO)
 
 # Day 03 #
 	- Initialization of builtin cd and echo (IN PROGRESS)
@@ -23,7 +21,15 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Leak checks (DONE)
 
 # Day 04 #
-	- Finishing environnement variables management (IN PROGRESS)
-	- Readapt main function (TODO)
+	- Finishing environnement variables management:
+		* Function add new env var (DONE)
+		* Function del env var (DONE)
+		* Function env (TODO)
+	- Readapt main function: use execute_switch (TODO)
 	- Norme the functions already done (TODO)
 	- Review gnl function (TODO)
+
+# DAY 05 #
+	- Finish all todo and in progress post above
+	- Implementing the shell exit properly (TODO)
+	- Studying error prompt (TODO)
