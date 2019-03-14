@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:17:19 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 09:15:22 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:52:31 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ int main(int ac, char **av, char **env)
 		tab = ft_strsplit(input, ' ');
 		if (ft_strcmp(tab[0], "cd") == 0)
 			my_cd(tab);
+		else if (ft_strcmp(tab[0], "exit") == 0)
+		{
+			free(input);
+			while (tab[i])
+				free(tab[i++]);
+			free(tab);
+			break ;
+		}
 		while (i < env_list.size)
 		{
 			if (ft_strcmp(env_list.data[i].name, "PWD") == 0)
@@ -42,5 +50,12 @@ int main(int ac, char **av, char **env)
 			}
 			i++;
 		}
+		free(input);
+		i = 0;
+		while (tab[i])
+			free(tab[i++]);
+		free(tab);
 	}
+
+	free(env_list.data);
 }

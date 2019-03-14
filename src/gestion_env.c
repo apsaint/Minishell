@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 09:58:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:13:24 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int		get_table_size(char **env)
 	return (i);
 }
 
-static int	resize_array(t_envlist *env_list)
+int		resize_array(t_envlist *env_list)
 {
-	const int	new_size_in_bytes = sizeof(t_env) * (f_list->size += 2);
-	const int	bytes_to_copy = sizeof(t_env) * f_list->count;
+	const int	new_size_in_bytes = sizeof(t_env) * (env_list->size += 2);
+	const int	bytes_to_copy = sizeof(t_env) * env_list->count;
 	t_env		*tmp_array;
 
 	if ((tmp_array = (t_env *)malloc(new_size_in_bytes)) == NULL)
@@ -52,8 +52,8 @@ int		add_var_env(t_env *env, char *var, char *name)
 	}
 	else
 	{
-		ft_strcpy(env_name, name);
-		ft_strcpy(env_value, var);
+		ft_strcpy(env->name, name);
+		ft_strcpy(env->value, var);
 	}
 	return (0);
 }

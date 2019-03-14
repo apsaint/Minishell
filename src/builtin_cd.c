@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:12:45 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 09:37:27 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:52:33 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int		my_cd(char **av)
 	if (!av[1] || ft_strcmp(av[1], "~") == 0)
 	{
 		chdir(home_path);
-		ft_strcpy(env_list.data[path_ind].value, home_path);
-		return (0);
+		return (set_env_var("PWD", home_path));
 	}
 	if (av[1][0] == '/')
 		ft_strcpy(new_path, av[1]);
@@ -62,7 +61,7 @@ int		my_cd(char **av)
 		if (access(new_path, X_OK) == 0)
 		{
 			chdir(new_path);
-			ft_strcpy(env_list.data[path_ind].value, new_path);
+			return (set_env_var("PWD", new_path));
 		}
 		else
 			ft_putendl("cd: permission denied");

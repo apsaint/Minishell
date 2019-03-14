@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 09:11:48 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 10:02:24 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:11:27 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int			my_cd(char **av);
 int			get_table_size(char **av);
 
 /* Functions environement*/
+int			resize_array(t_envlist *env_list);
 int			find_env_var(char *str);
 int			add_var_env(t_env *env, char *var, char *name);
 int			set_env_var(char *name, char *value);
-static int	resize_array(t_envlist *env_list);
 
 #endif
