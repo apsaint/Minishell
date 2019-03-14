@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 09:11:48 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/13 13:55:59 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:02:24 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 typedef struct	s_env
 {
-	char	*name;
-	char	*value;
+	char	name[4097];
+	char	value[4097];
 }				t_env;
 
 typedef struct	s_envlist
@@ -40,15 +40,20 @@ t_envlist		env_list;
 
 /* Functions gestions signaux */
 
-void	gestion_sig(int sig);
-int		copy_venv(char **env);
+void		gestion_sig(int sig);
+int			copy_venv(char **env);
 
 /* Functions builtin */
-int		my_echo(char **av);
-int		my_cd(char **av);
+int			my_echo(char **av);
+int			my_cd(char **av);
 
 /* Functions utils*/
-int		get_table_size(char **av);
-int		find_env_var(char *str);
+int			get_table_size(char **av);
+
+/* Functions environement*/
+int			find_env_var(char *str);
+int			add_var_env(t_env *env, char *var, char *name);
+int			set_env_var(char *name, char *value);
+static int	resize_array(t_envlist *env_list);
 
 #endif

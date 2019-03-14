@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/13 13:59:19 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 09:58:58 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,39 @@ int		get_table_size(char **env)
 	return (i);
 }
 
-int		add_var_env(t_env *env, char *var)
+static int	resize_array(t_envlist *env_list)
+{
+	const int	new_size_in_bytes = sizeof(t_env) * (f_list->size += 2);
+	const int	bytes_to_copy = sizeof(t_env) * f_list->count;
+	t_env		*tmp_array;
+
+	if ((tmp_array = (t_env *)malloc(new_size_in_bytes)) == NULL)
+		return (ALLOC_ERROR);
+	ft_memcpy(tmp_array, env_list->data, bytes_to_copy);
+	free(env_list->data);
+	env_list->data = tmp_array;
+	return (0);
+}
+
+int		add_var_env(t_env *env, char *var, char *name)
 {
 	char	*ptr;
 	int		i;
 
 	i = 0;
-	ptr = ft_strchr(var, '=');
-	while (var[i] != '=')
-		i++;
-	if ((env->name = (char *)malloc(sizeof(env->name) * i)) == NULL)
-		return (ALLOC_ERROR);
-	ft_strncpy(env->name, var, i);
-	env->value = ft_strdup(++ptr);
+	if (!name)
+	{
+		ptr = ft_strchr(var, '=');
+		while (var[i] != '=')
+			i++;
+		ft_strncpy(env->name, var, i);
+		ft_strcpy(env->value, ++ptr);
+	}
+	else
+	{
+		ft_strcpy(env_name, name);
+		ft_strcpy(env_value, var);
+	}
 	return (0);
 }
 
@@ -71,6 +91,6 @@ int		copy_venv(char **env)
 	env_list.count = 0;
 	env_list.size = size;
 	while (env_list.count != size)
-		add_var_env(&env_list.data[env_list.count++], env[i++]);
+		add_var_env(&env_list.data[env_list.count++], env[i++], NULL);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/13 13:56:11 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/14 10:03:03 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC+= $(SRC_DIR)/gestion_signal.c
 SRC+= $(SRC_DIR)/gestion_env.c
 SRC+= $(SRC_DIR)/builtin_echo.c
 SRC+= $(SRC_DIR)/builtin_cd.c
+SRC+= $(SRC_DIR)/builtin_setenv.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
