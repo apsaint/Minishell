@@ -1,10 +1,9 @@
 							# Minishell #
-Dans ce projet, vous devez réaliser un mini-shell capable de lire et d'évaluer
-des commandes simples de l'utilisateur. La lecture impliquera une analyse
-lexicale et syntaxique triviale de la commande, et l'évaluation impliquera de
-rechercher le binaire correspondant sur la machine et l'exécuter,
-ou bien d'exécuter le code concerné dans le cas d'une commande
-"built-in" au shell.
+Through the Minishell project, you will get to the core of the Unix system and explore
+an important part of this system’s API: process creation and synchronisation. Executing
+a command inside a shell implies creating a new process, which execution and final state
+will be monitored by its parent’s process. This set of functions will be the key to success
+for your Minishell, so be sure to code the cleanest, simplest program possible.
 
 						##### Feuille de route #####
 
