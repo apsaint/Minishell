@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 09:34:43 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 12:03:36 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/14 13:11:55 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ int		set_env_var(char *name, char *value)
 int		remove_env_var(char *name)
 {
 	int		ind;
-	int		i;
 
 	if ((ind = find_env_var(name)) == -1)
 		return (ENV_ERROR);
-	i = ind - 2;
-	while (++i < (env_list.count - 1))
-		env_list.data[i] = env_list.data[i + 1];
+	while (ind < env_list.count)
+	{
+		ft_strcpy(env_list.data[ind].name, env_list.data[ind + 1].name);
+		ft_strcpy(env_list.data[ind].value, env_list.data[ind + 1].value);
+		ind++;
+	}
 	env_list.count--;
 	return (0);
 }
