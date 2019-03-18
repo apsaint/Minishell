@@ -46,7 +46,7 @@ t_envlist		env_list;
 void		gestion_sig(int sig);
 
 /* Functions builtin */
-int			switch_command(char **cmd);
+int			switch_command(char *cmd);
 int			my_echo(char **av);
 int			my_cd(char **av);
 int			my_set_env(char **cmd);
@@ -57,7 +57,7 @@ int			get_table_size(char **av);
 void		free_tab(char **tab);
 
 /* Functions environement*/
-int			init_venv(char **env);
+int			init_venv(int ac, char **av, char **env);
 int			resize_array(t_envlist *env_list);
 int			find_env_var(char *str);
 int			add_var_env(t_env *env, char *var, char *name);

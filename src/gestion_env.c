@@ -78,11 +78,13 @@ int		find_env_var(char *str)
 	return (ENV_ERROR);
 }
 
-int		init_venv(char **env)
+int		init_venv(int ac, char **av, char **env)
 {
 	int		size;
 	int		i;
 
+	(void)ac;
+	(void)av;
 	size = get_table_size(env);
 	i = 0;
 	if ((env_list.data = (t_env *)malloc(sizeof(t_env) * (size + 1))) == NULL)

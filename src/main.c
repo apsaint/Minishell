@@ -16,28 +16,31 @@
 int main(int ac, char **av, char **env)
 {
 	char	*input;
+	int		i;
 	char	**tab;
 
-	(void)ac;
-	(void)av;
-	init_venv(env);
+	init_venv(ac, av, env);
 	while(42)
 	{
+		i = 0;
 		ft_putstr("minishell> ");
-		if (get_next_line(0, &input) == -1
-		|| (ft_strcmp(input, "\0") == 0))
+		if (get_next_line(0, &input) == -1 || (ft_strcmp(input, "\0") == 0))
 		{
 			free(input);
 			continue ;
 		}
-		tab = ft_strsplit(input, ' ');
-		free(input);
-		if (switch_command(tab) == -1)
+		tab = ft_strsplit(input, ';');
+		while (tab[i])
 		{
-			free_tab(tab);
-			break ;
+			if (switch_command(tab[i]) == -1)
+			{
+				free_tab(tab);
+				exit(1);
+			}
+			i++;
 		}
 		free_tab(tab);
+		free(input);
 	}
 	free_env(&env_list);
 }

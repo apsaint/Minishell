@@ -35,7 +35,11 @@ int		remove_env_var(char *name)
 	int		ind;
 
 	if ((ind = find_env_var(name)) == -1)
+	{
+		ft_putstr(name);
+		ft_putendl(": does not exist in environnement");
 		return (ENV_ERROR);
+	}
 	while (ind < env_list.count)
 	{
 		ft_strcpy(env_list.data[ind].name, env_list.data[ind + 1].name);

@@ -109,8 +109,11 @@ int		search_path(char **cmd)
 	return (0);
 }
 
-int		switch_command(char **cmd)
+int		switch_command(char *c)
 {
+	char	**cmd;
+
+	cmd = ft_strsplit(c, ' ');
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (-1);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
