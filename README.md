@@ -5,7 +5,7 @@ a command inside a shell implies creating a new process, which execution and fin
 will be monitored by its parent’s process. This set of functions will be the key to success
 for your Minishell, so be sure to code the cleanest, simplest program possible.
 
-						##### Road Map #####
+						     ##### Road Map #####
 
 # DAY 01 #	
 	- Starting the shell loop(base) (DONE)
