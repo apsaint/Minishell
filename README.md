@@ -24,12 +24,18 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Finishing environnement variables management:
 		* Function add new env var (DONE)
 		* Function del env var (DONE)
-		* Function env (TODO)
-	- Readapt main function: use execute_switch (TODO)
+		* Function env (IN PROGRESS)
+	- Readapt main function: use execute_switch (DONE)
 	- Norme the functions already done (TODO)
 	- Review gnl function (TODO)
 
 # DAY 05 #
-	- Finish all todo and in progress post above
-	- Implementing the shell exit properly (TODO)
+	- Finish all todo and in progress post above (IN PROGRESS)
+	- Implementing the shell exit properly (IN PROGRESS)
 	- Studying error prompt (TODO)
+
+# DAY 06 #
+	- Implementing free function for the char **cmd and input (DONE)
+	- Implementing switch command function (DONE)
+	- Starting function for executable within PATH (TODO)
+	
