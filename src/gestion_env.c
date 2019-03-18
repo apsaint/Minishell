@@ -78,7 +78,7 @@ int		find_env_var(char *str)
 	return (ENV_ERROR);
 }
 
-int		copy_venv(char **env)
+int		init_venv(char **env)
 {
 	int		size;
 	int		i;
@@ -93,4 +93,25 @@ int		copy_venv(char **env)
 	while (env_list.count != size)
 		add_var_env(&env_list.data[env_list.count++], env[i++], NULL);
 	return (0);
+}
+
+char	**cpy_env(void)
+{
+	int		size;
+	int		i;
+	char	**env;
+	char	tmp[4097];
+
+	size = env_list.count;
+	i = 0;
+	if ((env = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
+		return (NULL);
+	while (i != size)
+	{
+		ft_strcpy(tmp, env_list.data[i].name);
+		ft_strlcat(tmp, "=", 4097);
+		env[i] = ft_strjoin(tmp, env_list.data[i].value);
+		i++;
+	}
+	return (env);
 }

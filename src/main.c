@@ -26,10 +26,11 @@ int main(int ac, char **av, char **env)
 {
 	char	*input;
 	char	**tab;
+	char	**cpy;
 
 	(void)ac;
 	(void)av;
-	copy_venv(env);
+	init_venv(env);
 	while(42)
 	{
 		ft_putstr("minishell> ");
@@ -39,6 +40,13 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		tab = ft_strsplit(input, ' ');
+		if (ft_strcmp(tab[0], "cpy") == 0)
+		{
+			int i = 0;
+			cpy = cpy_env();
+			while (cpy[i])
+				ft_putendl(cpy[i++]);
+		}
 		if (switch_command(tab) == -1)
 		{
 			free_tab(tab);

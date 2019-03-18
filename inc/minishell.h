@@ -54,12 +54,13 @@ int			my_unset_env(char **cmd);
 int			get_table_size(char **av);
 
 /* Functions environement*/
-int			copy_venv(char **env);
+int			init_venv(char **env);
 int			resize_array(t_envlist *env_list);
 int			find_env_var(char *str);
 int			add_var_env(t_env *env, char *var, char *name);
 int			set_env_var(char *name, char *value);
 int			remove_env_var(char *name);
 int			print_env(void);
+char		**cpy_env(void);
 
 #endif
