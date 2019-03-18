@@ -7,24 +7,24 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 
 						##### Road Map #####
 
-# Day 01 #	
+# DAY 01 #	
 	- Starting the shell loop(base) (DONE)
 	- studying new functions offered by the project (DONE)
 
-# Day 02 #
+# DAY 02 #
 	- Initialization and copy of env variables (DONE)
 	- Implementation of struct for environmment variables (DONE)
 
-# Day 03 #
+# DAY 03 #
 	- Initialization of builtin cd and echo (IN PROGRESS)
 	- Implementation of builtin of env (IN PROGRESS)
 	- Leak checks (DONE)
 
-# Day 04 #
+# DAY 04 #
 	- Finishing environnement variables management:
 		* Function add new env var (DONE)
 		* Function del env var (DONE)
-		* Function env (IN PROGRESS)
+		* Function env (DONE)
 	- Readapt main function: use execute_switch (DONE)
 	- Norme the functions already done (TODO)
 	- Review gnl function (TODO)
@@ -32,10 +32,19 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 # DAY 05 #
 	- Finish all todo and in progress post above (IN PROGRESS)
 	- Implementing the shell exit properly (IN PROGRESS)
-	- Studying error prompt (TODO)
+	- Studying error prompt (IN PROGRESS)
 
 # DAY 06 #
 	- Implementing free function for the char **cmd and input (DONE)
 	- Implementing switch command function (DONE)
-	- Starting function for executable within PATH (TODO)
+	- Starting function for executable within PATH (DONE/TO BE TESTED)
+
+# DAY 07 #
+	- Clean project: reposition functions (IN PROGRESS)
+	- Implementing final main function (DONE)
+	- Valgrind full test for leak and clear all error and leaks (DONE)
 	
+# DAY 08 #
+	- Implement flag for all builtin functions (TODO)
+	- Add $, ~ and "" management (TODO)
+	- Implement signal handler (TODO)
