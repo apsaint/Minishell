@@ -12,14 +12,30 @@
 
 #include "minishell.h"
 
+int		run(pid_t proc, char *path, char **cmd)
+{
+	char	**cp_env;
+
+	if (proc == 0)
+	{
+		cp_env = cpy_env();
+		execve(path, cmd, cp_env);
+	}
+	else if (proc < 0)
+	{
+		ft_putendl("Fork failed");
+		return (FORK_ERROR);
+	}
+	return (0);
+}
+
 int		exe_cmd(char *path_cmd, char **cmd)
 {
 	struct stat		fs;
 	pid_t			new_proc;
-	char			**cp_env;
 
 	if (stat(path_cmd, &fs) == -1)
-		return (STAT_ERROR);
+		return (ARG_ERROR);
 	else
 	{
 		if (fs.st_mode & S_IFREG)
@@ -27,25 +43,16 @@ int		exe_cmd(char *path_cmd, char **cmd)
 			if (fs.st_mode & S_IXUSR)
 			{
 				new_proc = fork();
-				if (new_proc == 0)
-				{
-					cp_env = cpy_env();
-					execve(path_cmd, cmd, cp_env);
-				}
-				else
-				{
-					free(new_proc);
-					ft_putendl("Fork failed");
-					return (FORK_ERROR);
-				}
+				run(new_proc, path_cmd, cmd);
 				wait(&new_proc);
-				if (new_proc)
-					free(new_proc);
 			}
 			else
-				print_error_exe(full_path);
+			{
+				ft_putstr("minishell: permission denied : ");
+				ft_putendl(cmd[0]);
+			}
 		}
-		return (1);
+		return (0);
 	}
 }
 
@@ -56,41 +63,53 @@ int		search_exe(char *path, char **cmd)
 	char			full_path[4097];
 
 	if ((dirp = opendir(path)) == NULL)
-		return (ERROR_PATH);
+		return (ARG_ERROR);
 	else
 	{
-		while (!(dp = readdir(dirp)))
+		while ((dp = readdir(dirp)) != NULL)
 		{
-			if (ft_strcmp(dp->name, cmd[0]) == 0)
+			if (ft_strcmp(dp->d_name, cmd[0]) == 0)
 			{
-				full_path = ft_strlcat(path, '/', 4097);
-				ft_strlcat(full_path, dp->name, 4097);
+				ft_strlcat(path, "/", 4097);
+				ft_strcpy(full_path, path);
+				ft_strlcat(full_path, dp->d_name, 4097);
+				closedir(dirp);
 				return (exe_cmd(full_path, cmd));
 			}
 		}
-		return (2);
 	}
+	closedir(dirp);
+	return (1);
 }
 
 int		search_path(char **cmd)
 {
 	int		i;
 	char	**path;
-	char	*bin;
+	int		ret;
 
 	i = 0;
-	path_bin = ft_strsplit(env_list.data[find_env_var("PATH")].value, ':');
-	while (path_bin[i])
+	path = ft_strsplit(env_list.data[find_env_var("PATH")].value, ':');
+	while (path[i])
 	{
-		if ((bin = search_exe(path_bin[i], cmd[0])))
-			free(bin);
+		if ((ret = search_exe(path[i], cmd)) == 0)
+		{
+			free_tab(path);
+			return (ret);
+		}
+		else
+			i++;
 	}
+	ft_putstr("minishell: command not found: ");
+	ft_putendl(cmd[0]);
+	free_tab(path);
+	return (0);
 }
 
 int		switch_command(char **cmd)
 {
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		return (EXIT_STATUS);
+		return (-1);
 	else if (ft_strcmp(cmd[0], "cd") == 0)
 		return (my_cd(cmd));
 	else if (ft_strcmp(cmd[0], "echo") == 0)
@@ -102,6 +121,6 @@ int		switch_command(char **cmd)
 	else if (ft_strcmp(cmd[0], "unsetenv") == 0)
 		return (my_unset_env(cmd));
 	else
-		return (exe_intern_bin(cmd));
+		return (search_path(cmd));
 	return (0);
 }

@@ -16,10 +16,12 @@
 # define ALLOC_ERROR (-1)
 # define EXIT_STATUS (1)
 # define ARG_ERROR (-1)
+# define FORK_ERROR (-1)
 # define ENV_ERROR (-1)
 
 # include "libft.h"
 # include <unistd.h>
+# include <dirent.h>
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/stat.h>
@@ -52,6 +54,7 @@ int			my_unset_env(char **cmd);
 
 /* Functions utils*/
 int			get_table_size(char **av);
+void		free_tab(char **tab);
 
 /* Functions environement*/
 int			init_venv(char **env);

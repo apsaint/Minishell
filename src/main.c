@@ -26,7 +26,6 @@ int main(int ac, char **av, char **env)
 {
 	char	*input;
 	char	**tab;
-	char	**cpy;
 
 	(void)ac;
 	(void)av;
@@ -40,18 +39,13 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		tab = ft_strsplit(input, ' ');
-		if (ft_strcmp(tab[0], "cpy") == 0)
-		{
-			int i = 0;
-			cpy = cpy_env();
-			while (cpy[i])
-				ft_putendl(cpy[i++]);
-		}
+		free(input);
 		if (switch_command(tab) == -1)
 		{
 			free_tab(tab);
 			break ;
 		}
+		free_tab(tab);
 	}
 	free(env_list.data);
 }
