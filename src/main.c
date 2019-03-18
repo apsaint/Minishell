@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 int main(int ac, char **av, char **env)
 {
@@ -23,7 +24,8 @@ int main(int ac, char **av, char **env)
 	while(42)
 	{
 		ft_putstr("minishell> ");
-		if (get_next_line(0, &input) == -1)
+		if (get_next_line(0, &input) == -1
+		|| (ft_strcmp(input, "\0") == 0))
 		{
 			free(input);
 			continue ;

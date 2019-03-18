@@ -103,8 +103,8 @@ int		search_path(char **cmd)
 		else
 			i++;
 	}
-	ft_putstr("minishell: command not found: ");
-	ft_putendl(cmd[0]);
+	ft_putstr(cmd[0]);
+	ft_putendl(": command not found");
 	free_tab(path);
 	return (0);
 }
