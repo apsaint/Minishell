@@ -34,6 +34,7 @@ SRC+= $(SRC_DIR)/builtin_echo.c
 SRC+= $(SRC_DIR)/builtin_cd.c
 SRC+= $(SRC_DIR)/builtin_setenv.c
 SRC+= $(SRC_DIR)/execute_switch.c
+SRC+= $(SRC_DIR)/utils.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 

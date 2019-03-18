@@ -61,7 +61,9 @@ int		search_exe(char *path, char **cmd)
 	DIR				*dirp;
 	struct dirent	*dp;
 	char			full_path[4097];
+	int ret;
 
+	ft_bzero(full_path, sizeof(full_path));
 	if ((dirp = opendir(path)) == NULL)
 		return (ARG_ERROR);
 	else
@@ -70,11 +72,12 @@ int		search_exe(char *path, char **cmd)
 		{
 			if (ft_strcmp(dp->d_name, cmd[0]) == 0)
 			{
-				ft_strlcat(path, "/", 4097);
-				ft_strcpy(full_path, path);
+				ft_strlcat(full_path, path, 4097);
+				ft_strlcat(full_path, "/", 4097);
 				ft_strlcat(full_path, dp->d_name, 4097);
+				ret = exe_cmd(full_path, cmd);
 				closedir(dirp);
-				return (exe_cmd(full_path, cmd));
+				return(ret);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,12 @@
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+void	free_tab(char **tab)
 {
-	char	*input;
-	char	**tab;
+	int i;
 
-	(void)ac;
-	(void)av;
-	init_venv(env);
-	while(42)
-	{
-		ft_putstr("minishell> ");
-		if (get_next_line(0, &input) == -1)
-		{
-			free(input);
-			continue ;
-		}
-		tab = ft_strsplit(input, ' ');
-		free(input);
-		if (switch_command(tab) == -1)
-		{
-			free_tab(tab);
-			break ;
-		}
-		free_tab(tab);
-	}
-	free_env(&env_list);
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }

@@ -65,5 +65,6 @@ int			set_env_var(char *name, char *value);
 int			remove_env_var(char *name);
 int			print_env(void);
 char		**cpy_env(void);
+void		free_env(t_envlist *env_list);
 
 #endif
