@@ -12,4 +12,19 @@
 
 #include "minishell.h"
 
-
+int		switch_command(char **cmd)
+{
+	if (ft_strcmp(cmd[0], "exit") == 0)
+		return (EXIT_STATUS);
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+		return (my_cd(cmd));
+	else if (ft_strcmp(cmd[0], "echo") == 0)
+		return (my_echo(cmd));
+	else if (ft_strcmp(cmd[0], "env") == 0)
+		return (print_env());
+	else if (ft_strcmp(cmd[0], "setenv") == 0)
+		return (my_set_env(cmd));
+	else if (ft_strcmp(cmd[0], "unsetenv") == 0)
+		return (my_unset_env(cmd));
+	return (0);
+}

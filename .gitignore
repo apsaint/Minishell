@@ -1,5 +1,6 @@
 minishell
 a.out
+libft/
 
 *.o
 *.a

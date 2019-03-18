@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # define ALLOC_ERROR (-1)
+# define EXIT_STATUS (1)
+# define ARG_ERROR (-1)
 # define ENV_ERROR (-1)
 
 # include "libft.h"
@@ -39,23 +41,25 @@ typedef struct	s_envlist
 t_envlist		env_list;
 
 /* Functions gestions signaux */
-
 void		gestion_sig(int sig);
-int			copy_venv(char **env);
 
 /* Functions builtin */
+int			switch_command(char **cmd);
 int			my_echo(char **av);
 int			my_cd(char **av);
+int			my_set_env(char **cmd);
+int			my_unset_env(char **cmd);
 
 /* Functions utils*/
 int			get_table_size(char **av);
 
 /* Functions environement*/
+int			copy_venv(char **env);
 int			resize_array(t_envlist *env_list);
 int			find_env_var(char *str);
 int			add_var_env(t_env *env, char *var, char *name);
 int			set_env_var(char *name, char *value);
 int			remove_env_var(char *name);
-void		print_env(void);
+int			print_env(void);
 
 #endif

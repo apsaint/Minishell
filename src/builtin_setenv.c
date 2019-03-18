@@ -46,7 +46,7 @@ int		remove_env_var(char *name)
 	return (0);
 }
 
-void	print_env(void)
+int		print_env(void)
 {
 	int i;
 
@@ -57,4 +57,40 @@ void	print_env(void)
 		ft_putchar('=');
 		ft_putendl(env_list.data[i++].value);
 	}
+	return (0);
+}
+
+int		my_set_env(char **cmd)
+{
+	int i;
+	int c;
+
+	i = 1;
+	c = 0;
+	while (cmd[i++])
+		c++;
+	if (!c)
+		return (print_env());
+	else if (c == 2)
+		return (set_env_var(cmd[1], cmd[2]));
+	else if (c == 1)
+		return (set_env_var(cmd[1], NULL));
+	else
+		ft_putendl("setenv: Too many arguments");
+	return (1);
+}
+
+int		my_unset_env(char **cmd)
+{
+	int i;
+
+	i = 1;
+	if (!cmd[i])
+		ft_putendl("unsetenv: Too few arguments.");
+	else
+	{
+		while (cmd[i])
+			remove_env_var(cmd[i++]);
+	}
+	return (1);
 }

@@ -33,12 +33,13 @@ SRC+= $(SRC_DIR)/gestion_env.c
 SRC+= $(SRC_DIR)/builtin_echo.c
 SRC+= $(SRC_DIR)/builtin_cd.c
 SRC+= $(SRC_DIR)/builtin_setenv.c
+SRC+= $(SRC_DIR)/execute_switch.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
 ##### TOOLS ####################################################################
 
-LINK = clang
+LINK = gcc
 CFLAGS += -Wall
 CFLAGS += -Werror
 CFLAGS += -Wextra

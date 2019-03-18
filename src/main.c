@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+void	free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
+
 int main(int ac, char **av, char **env)
 {
 	char	*input;
@@ -22,35 +32,18 @@ int main(int ac, char **av, char **env)
 	copy_venv(env);
 	while(42)
 	{
-		int i = 0;
 		ft_putstr("minishell> ");
-		//signal(SIGINT, gestion_sig);
 		if (get_next_line(0, &input) == -1)
 		{
 			free(input);
 			continue ;
 		}
 		tab = ft_strsplit(input, ' ');
-		//if (ft_strcmp(tab[0], "cd") == 0)
-		//	my_cd(tab);
-		if (ft_strcmp(tab[0], "rm") == 0)
-			remove_env_var(tab[1]);
-		else if (ft_strcmp(tab[0], "add") == 0)
-			set_env_var("TEST", "test new var");
-		else if (ft_strcmp(tab[0], "exit") == 0)
+		if (switch_command(tab) == -1)
 		{
-			free(input);
-			while (tab[i])
-				free(tab[i++]);
-			free(tab);
+			free_tab(tab);
 			break ;
 		}
-		print_env();
-		free(input);
-		while (tab[i])
-			free(tab[i++]);
-		free(tab);
 	}
-
 	free(env_list.data);
 }
