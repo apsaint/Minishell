@@ -17,7 +17,7 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 
 # DAY 03 #
 	- Initialization of builtin cd and echo (IN PROGRESS)
-	- Implementation of builtin of env (IN PROGRESS)
+	- Implementation of builtin of env (DONE)
 	- Leak checks (DONE)
 
 # DAY 04 #
@@ -26,8 +26,8 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 		* Function del env var (DONE)
 		* Function env (DONE)
 	- Readapt main function: use execute_switch (DONE)
-	- Norme the functions already done (TODO)
-	- Review gnl function (TODO)
+	- Norme the functions already done (IN PROGRESS)
+	- Review gnl function (IN PROGRESS)
 
 # DAY 05 #
 	- Finish all todo and in progress post above (IN PROGRESS)
@@ -40,7 +40,7 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Starting function for executable within PATH (DONE/TO BE TESTED)
 
 # DAY 07 #
-	- Clean project: reposition functions (IN PROGRESS)
+	- Clean project: reposition functions (DONE)
 	- Implementing final main function (DONE)
 	- Valgrind full test for leak and clear all error and leaks (DONE)
 	
@@ -48,3 +48,7 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Implement flag for all builtin functions (TODO)
 	- Add $, ~ and "" management (TODO)
 	- Implement signal handler (TODO)
+
+# DAY 09 #
+	- Solve valgrind error gnl (IN PROGRESS)
+	- Redo Libft makefile (TODO)
