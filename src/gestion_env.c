@@ -6,21 +6,11 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 10:13:24 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/20 10:36:17 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		get_table_size(char **env)
-{
-	int		i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
 
 int		resize_array(t_envlist *env_list)
 {
@@ -58,12 +48,6 @@ int		add_var_env(t_env *env, char *var, char *name)
 	return (0);
 }
 
-void	free_env(t_envlist *env_list)
-{
-	free(env_list->data);
-	ft_memset(env_list, 0, sizeof(env_list));
-}
-
 int		find_env_var(char *str)
 {
 	int i;
@@ -88,7 +72,7 @@ int		init_venv(int ac, char **av, char **env)
 	size = get_table_size(env);
 	i = 0;
 	if ((env_list.data = (t_env *)malloc(sizeof(t_env) * (size + 1))) == NULL)
-			return (ALLOC_ERROR);
+		return (ALLOC_ERROR);
 	ft_memset(env_list.data, 0, sizeof(t_env) * (size + 1));
 	env_list.count = 0;
 	env_list.size = size;
@@ -115,5 +99,6 @@ char	**cpy_env(void)
 		env[i] = ft_strjoin(tmp, env_list.data[i].value);
 		i++;
 	}
+	env[i] = NULL;
 	return (env);
 }

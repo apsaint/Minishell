@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 09:34:43 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 13:50:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/20 09:50:03 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		my_set_env(char **cmd)
 		return (set_env_var(cmd[1], NULL));
 	else
 		ft_putendl("setenv: Too many arguments");
+	free_tab(cmd);
 	return (1);
 }
 
@@ -96,5 +97,6 @@ int		my_unset_env(char **cmd)
 		while (cmd[i])
 			remove_env_var(cmd[i++]);
 	}
+	free_tab(cmd);
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 12:30:06 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/11 13:17:12 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/20 15:55:30 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BUFF_SIZE 32
+# define BUFF_SIZE 42
 # define FD_SIZE 4865
 
 # include <string.h>

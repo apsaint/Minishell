@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 09:11:48 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 11:57:48 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/20 12:22:39 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define ALLOC_ERROR (-1)
-# define EXIT_STATUS (1)
+# define EXIT_STATUS (-1)
 # define ARG_ERROR (-1)
 # define FORK_ERROR (-1)
 # define ENV_ERROR (-1)
@@ -42,6 +42,9 @@ typedef struct	s_envlist
 
 t_envlist		env_list;
 
+/* Functions command recup*/
+int			get_cmd(char **line);
+
 /* Functions gestions signaux */
 void		gestion_sig(int sig);
 
@@ -55,6 +58,7 @@ int			my_unset_env(char **cmd);
 /* Functions utils*/
 int			get_table_size(char **av);
 void		free_tab(char **tab);
+char		**remove_space(char **str);
 
 /* Functions environement*/
 int			init_venv(int ac, char **av, char **env);

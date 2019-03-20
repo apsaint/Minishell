@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/14 13:29:44 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/20 10:32:08 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		search_exe(char *path, char **cmd)
 	DIR				*dirp;
 	struct dirent	*dp;
 	char			full_path[4097];
-	int ret;
+	int				ret;
 
 	ft_bzero(full_path, sizeof(full_path));
 	if ((dirp = opendir(path)) == NULL)
@@ -77,7 +77,7 @@ int		search_exe(char *path, char **cmd)
 				ft_strlcat(full_path, dp->d_name, 4097);
 				ret = exe_cmd(full_path, cmd);
 				closedir(dirp);
-				return(ret);
+				return (ret);
 			}
 		}
 	}
@@ -98,6 +98,7 @@ int		search_path(char **cmd)
 		if ((ret = search_exe(path[i], cmd)) == 0)
 		{
 			free_tab(path);
+			free_tab(cmd);
 			return (ret);
 		}
 		else
@@ -106,6 +107,7 @@ int		search_path(char **cmd)
 	ft_putstr(cmd[0]);
 	ft_putendl(": command not found");
 	free_tab(path);
+	free_tab(cmd);
 	return (0);
 }
 
@@ -115,13 +117,19 @@ int		switch_command(char *c)
 
 	cmd = ft_strsplit(c, ' ');
 	if (ft_strcmp(cmd[0], "exit") == 0)
+	{
+		free_tab(cmd);
 		return (-1);
+	}
 	else if (ft_strcmp(cmd[0], "cd") == 0)
 		return (my_cd(cmd));
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		return (my_echo(cmd));
 	else if (ft_strcmp(cmd[0], "env") == 0)
+	{
+		free_tab(cmd);
 		return (print_env());
+	}
 	else if (ft_strcmp(cmd[0], "setenv") == 0)
 		return (my_set_env(cmd));
 	else if (ft_strcmp(cmd[0], "unsetenv") == 0)
