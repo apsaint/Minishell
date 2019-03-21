@@ -27,7 +27,7 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 		* Function env (DONE)
 	- Readapt main function: use execute_switch (DONE)
 	- Norme the functions already done (IN PROGRESS)
-	- Review gnl function (IN PROGRESS)
+	- Review gnl function (DONE)
 
 # DAY 05 #
 	- Finish all todo and in progress post above (IN PROGRESS)
@@ -50,5 +50,9 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Implement signal handler (TODO)
 
 # DAY 09 #
-	- Solve valgrind error gnl (IN PROGRESS)
+	- Solve valgrind error gnl (DONE)
 	- Redo Libft makefile (TODO)
+
+# DAY 10 #
+	- Rewrite of input read function (DONE)
+	- Delete gnl and check leak (DONE)
