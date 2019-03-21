@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:54:36 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/21 08:55:35 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/21 09:10:02 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ int		get_cmd(char **line)
 	while ((b = read(0, cmd, BUFF_SIZE)) > 0)
 	{
 		cmd[b] = '\0';
-		if ((tmp = ft_strchr(cmd, '\n')) == NULL)
-			c++;
+		c += ((tmp = ft_strchr(cmd, '\n')) == NULL) ? 1 : 0;
 		c = get_input(c, line, cmd);
 		if ((tmp = ft_strchr(*line, '\n')) != NULL)
 		{
