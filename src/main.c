@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:17:19 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/20 16:44:39 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/21 08:33:54 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int		main(int ac, char **av, char **env)
 		}
 		tab = ft_strsplit(input, ';');
 		while (tab[i])
+		{
 			if ((ret = switch_command(tab[i++])) == -1)
 				break ;
+		}
 		free_tab(tab);
 		free(input);
 		if (ret == -1)
