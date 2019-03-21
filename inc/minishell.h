@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 09:11:48 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/20 12:22:39 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/21 11:08:58 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			my_unset_env(char **cmd);
 int			get_table_size(char **av);
 void		free_tab(char **tab);
 char		**remove_space(char **str);
+char		**ft_strsplit_input(char *str, char c);
 
 /* Functions environement*/
 int			init_venv(int ac, char **av, char **env);

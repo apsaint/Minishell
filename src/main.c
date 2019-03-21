@@ -6,12 +6,11 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:17:19 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/21 09:11:45 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/21 09:14:10 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 int		main(int ac, char **av, char **env)
 {

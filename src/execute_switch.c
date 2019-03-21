@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/20 10:32:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/21 11:59:43 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,10 @@ int		search_path(char **cmd)
 int		switch_command(char *c)
 {
 	char	**cmd;
+	//char	**tab;
 
-	cmd = ft_strsplit(c, ' ');
+	//cmd = ft_strsplit(c, ' ');
+	cmd = ft_strsplit_input(c, ' ');
 	if (ft_strcmp(cmd[0], "exit") == 0)
 	{
 		free_tab(cmd);
