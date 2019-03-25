@@ -114,9 +114,7 @@ int		search_path(char **cmd)
 int		switch_command(char *c)
 {
 	char	**cmd;
-	//char	**tab;
 
-	//cmd = ft_strsplit(c, ' ');
 	cmd = ft_strsplit_input(c, ' ');
 	if (ft_strcmp(cmd[0], "exit") == 0)
 	{

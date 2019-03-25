@@ -92,13 +92,18 @@ void	resize_tab(char **tab, int i)
 		if (j >= i)
 		{
 			free(tab[j]);
-			tab[j] = ft_strdup(tab[j + 1]);
-			if ((j + 1) == (size - 1))
+			if ( tab[j + 1])
 			{
-				free(tab[j + 1]);
-				tab[j + 1] = NULL;
-				break ;
+				tab[j] = ft_strdup(tab[j + 1]);
+				if ((j + 1) == (size - 1))
+				{
+					free(tab[j + 1]);
+					tab[j + 1] = NULL;
+					break ;
+				}
 			}
+			else
+				tab[j] = NULL;
 		}
 		j++;
 	}

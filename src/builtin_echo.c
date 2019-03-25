@@ -19,12 +19,13 @@ int		my_echo(char **av)
 
 	i = 1;
 	if (av[1])
-	{
-		if (ft_strcmp(av[1], "-n") == 0)
-			i = 2;
-	}
+		i = (ft_strcmp(av[1], "-n") == 0) ? 2 : 1;
 	else
+	{
+		free_tab(av);
+		ft_putchar('\n');
 		return (0);
+	}
 	opt = i;
 	while (av[i])
 	{
