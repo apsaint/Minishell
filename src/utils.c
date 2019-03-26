@@ -6,14 +6,14 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:37:28 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/26 12:05:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/26 17:41:32 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-void	free_tab(char **tab)
+int		free_tab(char **tab)
 {
 	int i;
 
@@ -21,6 +21,7 @@ void	free_tab(char **tab)
 	while (tab[i])
 		free(tab[i++]);
 	free(tab);
+	return (0);
 }
 
 int		get_table_size(char **env)
@@ -43,12 +44,25 @@ int		ft_get_env(char **cmd, int j, int ind)
 {
 	char	*name;
 	char	*value;
+	char	*val;
 	char	*tmp;
+	char	*end;
 	size_t	size;
 	int		i;
+	int		a;
+	int		e;
+	int		d;
 
 	size = 0;
-	while (cmd[ind][j] && cmd[ind][j] != ' ' && cmd[ind][j] != '$' && cmd[ind][j] != '/')
+	a = 0;
+	d = 0;
+	e = 0;
+	if (j != 1)
+	{
+		tmp = ft_strsub(cmd[ind], 0, j - 1);
+		d = 1;
+	}
+	while (cmd[ind][j] && cmd[ind][j] != '$' && cmd[ind][j] != '/')
 	{
 		j++;
 		size++;
@@ -56,30 +70,78 @@ int		ft_get_env(char **cmd, int j, int ind)
 	name = ft_strsub(cmd[ind], (j - size), size);
 	if ((i = find_env_var(name)) != -1)
 	{
-		free(name);
-		name = ft_strdup(env_list.data[i].value);
-		if (cmd[ind][j] == '/')
+		val = ft_strdup(env_list.data[i].value);
+		a = 1;
+	}
+	free(name);
+	if (cmd[ind][j] == '/')
+	{
+		size = 1;
+		while (cmd[ind][j])
 		{
-			size = 1;
-			while (cmd[ind][j++])
-				size++;
-			tmp = ft_strsub(cmd[ind], (j - size), size);
-			value = ft_strjoin(name, tmp);
-			free(name);
-			free(cmd[ind]);
-			free(tmp);
-			cmd[ind] = ft_strdup(value);
-			free(value);
-			return (j);
+			j++;
+			size++;
 		}
-		free(cmd[ind]);
-		cmd[ind] = ft_strdup(name);
-		free(name);
+		end = ft_strsub(cmd[ind], (j - size), size);
+		e = 1;
+	}
+	if (a == 1)
+	{
+		if (e == 1)
+		{
+			free(cmd[ind]);
+			value = ft_strjoin(val, end);
+			free(val);
+			free(end);
+			if (d == 1)
+			{
+				cmd[ind] = ft_strjoin(tmp, value);
+				free(tmp);
+			}
+			else
+				cmd[ind] = ft_strdup(value);
+			free(value);
+		}
+		else
+		{
+			free(cmd[ind]);
+			if (d == 1)
+			{
+				cmd[ind] = ft_strjoin(tmp, val);
+				free(tmp);
+			}
+			else
+				cmd[ind] = ft_strdup(val);
+			free(val);
+		}
+		return (j);
 	}
 	else
 	{
-		free(name);
-		return (-1);
+		if (e == 1)
+		{
+			free(cmd[ind]);
+			if (d == 1)
+			{
+				cmd[ind] = ft_strjoin(tmp, end);
+				free(tmp);
+			}
+			else
+				cmd[ind] = ft_strdup(end);
+			free(end);
+			return (j);
+		}
+		else
+		{
+			if (d == 1)
+			{
+				free(cmd[ind]);
+				cmd[ind] = ft_strdup(tmp);
+				free(tmp);
+			}
+			else
+				return (-1);
+		}
 	}
 	return (j);
 }
@@ -121,7 +183,7 @@ void	resize_tab(char **tab, int i)
 {
 	int j;
 
-	j = 1;
+	j = 0;
 	int size = get_table_size(tab);
 	while (tab[j])
 	{
@@ -141,7 +203,8 @@ void	resize_tab(char **tab, int i)
 			else
 				tab[j] = NULL;
 		}
-		j++;
+		if (size > 1)
+			j++;
 	}
 }
 
@@ -151,7 +214,7 @@ char	**ft_strsplit_input(char *str, char c)
 	int		i;
 	int		j;
 
-	i = 1;
+	i = 0;
 	cmd = ft_strsplit(str, c);
 	while (cmd[i])
 	{
