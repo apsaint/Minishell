@@ -16,7 +16,7 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Implementation of struct for environmment variables (DONE)
 
 # DAY 03 #
-	- Initialization of builtin cd and echo (IN PROGRESS)
+	- Initialization of builtin cd and echo (DONE)
 	- Implementation of builtin of env (DONE)
 	- Leak checks (DONE)
 
@@ -45,8 +45,8 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Valgrind full test for leak and clear all error and leaks (DONE)
 	
 # DAY 08 #
-	- Implement flag for all builtin functions (TODO)
-	- Add $, ~ and "" management (TODO)
+	- Implement flag for all builtin functions (IN PROGRESS)
+	- Add $, ~ management (DONE)
 	- Implement signal handler (TODO)
 
 # DAY 09 #
