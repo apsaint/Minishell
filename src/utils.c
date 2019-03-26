@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:37:28 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/21 11:59:41 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/26 12:05:58 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ft_get_env(char **cmd, int j, int ind)
 {
 	char	*name;
 	char	*value;
+	char	*tmp;
 	size_t	size;
 	int		i;
 
@@ -62,9 +63,11 @@ int		ft_get_env(char **cmd, int j, int ind)
 			size = 1;
 			while (cmd[ind][j++])
 				size++;
-			value = ft_strjoin(name, ft_strsub(cmd[ind], (j - size), size));
+			tmp = ft_strsub(cmd[ind], (j - size), size);
+			value = ft_strjoin(name, tmp);
 			free(name);
 			free(cmd[ind]);
+			free(tmp);
 			cmd[ind] = ft_strdup(value);
 			free(value);
 			return (j);
@@ -79,6 +82,39 @@ int		ft_get_env(char **cmd, int j, int ind)
 		return (-1);
 	}
 	return (j);
+}
+
+int		ft_get_home(char **cmd, int j, int ind)
+{
+	char	*home;
+	char	*tmp;
+	int		size;
+
+	size = 1;
+	if (j == 1)
+	{
+		if (cmd[ind][j] == '/')
+		{
+			home = ft_strdup(env_list.data[find_env_var("HOME")].value);
+			while (cmd[ind][j++])
+				size++;
+			tmp = ft_strsub(cmd[ind], (j - size), size);
+			free(cmd[ind]);
+			cmd[ind] = ft_strjoin(home, tmp);
+			free(home);
+			free(tmp);
+			return (j - size);
+		}
+		else if (!cmd[ind][j])
+		{
+			free(cmd[ind]);
+			cmd[ind] = ft_strdup(env_list.data[find_env_var("HOME")].value);
+			return (j);
+		}
+	}
+	else if (j != 1)
+		return (j);
+	return (-1);
 }
 
 void	resize_tab(char **tab, int i)
@@ -124,6 +160,8 @@ char	**ft_strsplit_input(char *str, char c)
 		{
 			if (cmd[i][j] == '$' && cmd[i][j + 1])
 				j = ft_get_env(cmd, ++j, i);
+			else if (cmd[i][j] == '~')
+				j = ft_get_home(cmd, ++j, i);
 			if (j == -1)
 			{
 				resize_tab(cmd, i);
