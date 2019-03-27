@@ -45,6 +45,7 @@ LINK = gcc
 CFLAGS += -Wall
 CFLAGS += -Werror
 CFLAGS += -Wextra
+CFLAGS += -g
 CFLAGS += -I $(INC_DIR)/ -I $(LIBFT_HEADERS)/
 CLIBS += -L $(LIBFT_DIR)
 MKDIR:= mkdir -p

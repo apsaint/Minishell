@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:37:28 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/26 17:41:32 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:03:16 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,25 @@ int		ft_get_env(char **cmd, int j, int ind)
 	int		a;
 	int		e;
 	int		d;
+	int		c;
 
 	size = 0;
 	a = 0;
 	d = 0;
 	e = 0;
+	c = j;
 	if (j != 1)
 	{
 		tmp = ft_strsub(cmd[ind], 0, j - 1);
 		d = 1;
 	}
-	while (cmd[ind][j] && cmd[ind][j] != '$' && cmd[ind][j] != '/')
+	while (cmd[ind][c] && cmd[ind][c] != '$' && cmd[ind][c] != '/')
 	{
-		j++;
+		c++;
 		size++;
 	}
-	name = ft_strsub(cmd[ind], (j - size), size);
+	name = ft_strsub(cmd[ind], j, size);
+	j = c;
 	if ((i = find_env_var(name)) != -1)
 	{
 		val = ft_strdup(env_list.data[i].value);
@@ -76,20 +79,16 @@ int		ft_get_env(char **cmd, int j, int ind)
 	free(name);
 	if (cmd[ind][j] == '/')
 	{
-		size = 1;
-		while (cmd[ind][j])
-		{
-			j++;
-			size++;
-		}
-		end = ft_strsub(cmd[ind], (j - size), size);
+		size = ft_strlen(cmd[ind]) - (size_t)j;
+		end = ft_strsub(cmd[ind], j, size);
+		j += size;
 		e = 1;
 	}
 	if (a == 1)
 	{
+		free(cmd[ind]);
 		if (e == 1)
 		{
-			free(cmd[ind]);
 			value = ft_strjoin(val, end);
 			free(val);
 			free(end);
@@ -104,7 +103,6 @@ int		ft_get_env(char **cmd, int j, int ind)
 		}
 		else
 		{
-			free(cmd[ind]);
 			if (d == 1)
 			{
 				cmd[ind] = ft_strjoin(tmp, val);
@@ -129,7 +127,7 @@ int		ft_get_env(char **cmd, int j, int ind)
 			else
 				cmd[ind] = ft_strdup(end);
 			free(end);
-			return (j);
+			return (ft_strlen(cmd[ind]));
 		}
 		else
 		{
@@ -138,6 +136,7 @@ int		ft_get_env(char **cmd, int j, int ind)
 				free(cmd[ind]);
 				cmd[ind] = ft_strdup(tmp);
 				free(tmp);
+				return (ft_strlen(cmd[ind]));
 			}
 			else
 				return (-1);
@@ -182,15 +181,16 @@ int		ft_get_home(char **cmd, int j, int ind)
 void	resize_tab(char **tab, int i)
 {
 	int j;
+	int	size;
 
 	j = 0;
-	int size = get_table_size(tab);
+	size = get_table_size(tab);
 	while (tab[j])
 	{
 		if (j >= i)
 		{
 			free(tab[j]);
-			if ( tab[j + 1])
+			if (tab[j + 1])
 			{
 				tab[j] = ft_strdup(tab[j + 1]);
 				if ((j + 1) == (size - 1))
@@ -214,12 +214,12 @@ char	**ft_strsplit_input(char *str, char c)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	cmd = ft_strsplit(str, c);
-	while (cmd[i])
+	while (cmd[++i])
 	{
-		j = 0;
-		while (cmd[i][j])
+		j = -1;
+		while (cmd[i][++j])
 		{
 			if (cmd[i][j] == '$' && cmd[i][j + 1])
 				j = ft_get_env(cmd, ++j, i);
@@ -230,9 +230,9 @@ char	**ft_strsplit_input(char *str, char c)
 				resize_tab(cmd, i);
 				break ;
 			}
-			j++;
+			if (!cmd[i][j])
+				break ;
 		}
-		i++;
 	}
 	return (cmd);
 }

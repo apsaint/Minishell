@@ -6,11 +6,12 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:46:09 by apsaint-          #+#    #+#             */
-/*   Updated: 2018/11/07 14:50:26 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/27 10:24:53 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strcpy(char *dst, const char *src)
 {
