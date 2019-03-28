@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/26 15:33:49 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/28 09:22:34 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,16 @@ int		search_exe(char *path, char **cmd)
 int		search_path(char **cmd)
 {
 	int		i;
+	int		ind;
 	char	**path;
 	int		ret;
 
-	i = 0;
+	i = -1;
 	if (!cmd[0])
 		return (free_tab(cmd));
-	path = ft_strsplit(env_list.data[find_env_var("PATH")].value, ':');
-	while (path[i])
+	if ((ind = find_env_var("PATH")) != -1)
+		path = ft_strsplit(env_list.data[find_env_var("PATH")].value, ':');
+	while (ind != -1 && path[++i])
 	{
 		if ((ret = search_exe(path[i], cmd)) == 0)
 		{
@@ -103,12 +105,12 @@ int		search_path(char **cmd)
 			free_tab(cmd);
 			return (ret);
 		}
-		else
-			i++;
 	}
+	ft_putstr("minishell: ");
 	ft_putstr(cmd[0]);
-	ft_putendl(": command not found");
-	free_tab(path);
+	ft_putendl(": No such file or directory");
+	if (ind != -1)
+		free_tab(path);
 	return (free_tab(cmd));
 }
 
