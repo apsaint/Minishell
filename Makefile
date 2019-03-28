@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/27 13:28:51 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/28 11:26:50 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC+= $(SRC_DIR)/gestion_env.c
 SRC+= $(SRC_DIR)/builtin_echo.c
 SRC+= $(SRC_DIR)/builtin_cd.c
 SRC+= $(SRC_DIR)/builtin_setenv.c
+SRC+= $(SRC_DIR)/builtin_env.c
 SRC+= $(SRC_DIR)/execute_switch.c
 SRC+= $(SRC_DIR)/utils.c
 SRC+= $(SRC_DIR)/input_parsing.c

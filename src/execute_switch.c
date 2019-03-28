@@ -6,20 +6,26 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 09:22:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/28 16:56:38 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		run(pid_t proc, char *path, char **cmd)
+int		run(pid_t proc, char *path, char **cmd, char **n_env)
 {
-	char	**cp_env;
+	//char	**cp_env;
 
 	if (proc == 0)
 	{
-		cp_env = cpy_env();
-		execve(path, cmd, cp_env);
+		//if (!n_env)
+		//{
+		//	cp_env = cpy_env();
+			//execve(path, cmd, cp_env);
+		//}
+		//else
+			execve(path, cmd, n_env);
+
 	}
 	else if (proc < 0)
 	{
@@ -29,7 +35,7 @@ int		run(pid_t proc, char *path, char **cmd)
 	return (0);
 }
 
-int		exe_cmd(char *path_cmd, char **cmd)
+int		exe_cmd(char *path_cmd, char **cmd, char **n_env)
 {
 	struct stat		fs;
 	pid_t			new_proc;
@@ -43,7 +49,7 @@ int		exe_cmd(char *path_cmd, char **cmd)
 			if (fs.st_mode & S_IXUSR)
 			{
 				new_proc = fork();
-				run(new_proc, path_cmd, cmd);
+				run(new_proc, path_cmd, cmd, n_env);
 				wait(&new_proc);
 			}
 			else
@@ -56,7 +62,7 @@ int		exe_cmd(char *path_cmd, char **cmd)
 	}
 }
 
-int		search_exe(char *path, char **cmd)
+int		search_exe(char *path, char **cmd, char **n_env)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
@@ -75,7 +81,7 @@ int		search_exe(char *path, char **cmd)
 				ft_strlcat(full_path, path, 4097);
 				ft_strlcat(full_path, "/", 4097);
 				ft_strlcat(full_path, dp->d_name, 4097);
-				ret = exe_cmd(full_path, cmd);
+				ret = exe_cmd(full_path, cmd, n_env);
 				closedir(dirp);
 				return (ret);
 			}
@@ -85,32 +91,83 @@ int		search_exe(char *path, char **cmd)
 	return (1);
 }
 
-int		search_path(char **cmd)
+int		course_path(char **cmd, char **n_env, int ind)
 {
-	int		i;
-	int		ind;
 	char	**path;
+	char	**tmp;
 	int		ret;
+	int		i;
 
 	i = -1;
-	if (!cmd[0])
-		return (free_tab(cmd));
-	if ((ind = find_env_var("PATH")) != -1)
-		path = ft_strsplit(env_list.data[find_env_var("PATH")].value, ':');
-	while (ind != -1 && path[++i])
+
+	tmp = ft_strsplit(n_env[ind], '=');
+	path = ft_strsplit(tmp[1], ':');
+	while (path[++i])
 	{
-		if ((ret = search_exe(path[i], cmd)) == 0)
+		if ((ret = search_exe(path[i], cmd, n_env)) == 0)
 		{
+			free_tab(tmp);
 			free_tab(path);
 			free_tab(cmd);
+			if (n_env)
+				free_tab(n_env);
 			return (ret);
 		}
+	}
+	free_tab(tmp);
+	free_tab(path);
+	return (1);
+}
+
+int		find_env_path(char *str, char **n_env)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	if (n_env == NULL)
+		return (ENV_ERROR);
+	while (n_env[i])
+	{
+		tmp = ft_strsplit(n_env[i], '=');
+		if (ft_strcmp(tmp[0], str) == 0)
+		{
+			free_tab(tmp);
+			return (i);
+		}
+		free_tab(tmp);
+		i++;
+	}
+	return (ENV_ERROR);
+}
+
+int		search_path(char **cmd, char *str, char **n_env)
+{
+	int		ret;
+	char	pwd[4097];
+	int		ind;
+
+	if (!cmd[0])
+		return (free_tab(cmd));
+	getcwd(pwd, sizeof(pwd));
+	ft_strlcat(pwd, "/", sizeof(pwd));
+	ft_strlcat(pwd, cmd[0], sizeof(pwd));
+	if (exe_cmd(pwd, cmd, n_env) != -1)
+	{
+		if (n_env != NULL)
+			free_tab(n_env);
+		return (free_tab(cmd));
+	}
+	else if ((ind = find_env_path(str, n_env)) != -1)
+	{
+		if ((ret = course_path(cmd, n_env, ind)) == 0)
+			return (ret);
 	}
 	ft_putstr("minishell: ");
 	ft_putstr(cmd[0]);
 	ft_putendl(": No such file or directory");
-	if (ind != -1)
-		free_tab(path);
+	if (n_env != NULL)
+		free_tab(n_env);
 	return (free_tab(cmd));
 }
 
@@ -129,15 +186,12 @@ int		switch_command(char *c)
 	else if (cmd[0] && ft_strcmp(cmd[0], "echo") == 0)
 		return (my_echo(cmd));
 	else if (cmd[0] && ft_strcmp(cmd[0], "env") == 0)
-	{
-		free_tab(cmd);
-		return (print_env());
-	}
+		return (my_env(cmd));
 	else if (cmd[0] && ft_strcmp(cmd[0], "setenv") == 0)
 		return (my_set_env(cmd));
 	else if (cmd[0] && ft_strcmp(cmd[0], "unsetenv") == 0)
 		return (my_unset_env(cmd));
 	else
-		return (search_path(cmd));
+		return (search_path(cmd, "PATH", cpy_env()));
 	return (0);
 }

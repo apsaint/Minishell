@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/20 10:36:17 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/28 16:26:38 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	**cpy_env(void)
 
 	size = env_list.count;
 	i = 0;
+	if (size == 0)
+		return (NULL);
 	if ((env = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
 		return (NULL);
 	while (i != size)

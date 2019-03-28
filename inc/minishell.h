@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 09:11:48 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 08:50:52 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/28 11:26:18 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,16 @@ int			get_cmd(char **line);
 /* Functions gestions signaux */
 void		gestion_sig(int sig);
 
+/* Functions execute switch */
+int			search_path(char **cmd, char *str, char **n_env);
+
 /* Functions builtin */
 int			switch_command(char *cmd);
 int			my_echo(char **av);
 int			my_cd(char **av);
 int			my_set_env(char **cmd);
 int			my_unset_env(char **cmd);
+int			my_env(char **cmd);
 
 /* Functions utils*/
 int			get_table_size(char **av);
