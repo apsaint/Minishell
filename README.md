@@ -26,11 +26,11 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 		* Function del env var (DONE)
 		* Function env (DONE)
 	- Readapt main function: use execute_switch (DONE)
-	- Norme the functions already done (IN PROGRESS)
+	- Norme the functions already done (DONE)
 	- Review gnl function (DONE)
 
 # DAY 05 #
-	- Finish all todo and in progress post above (IN PROGRESS)
+	- Finish all todo and in progress post above (DONE)
 	- Implementing the shell exit properly (IN PROGRESS)
 	- Studying error prompt (IN PROGRESS)
 
@@ -56,3 +56,8 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 # DAY 10 #
 	- Rewrite of input read function (DONE)
 	- Delete gnl and check leak (DONE)
+
+# DAY 11 #
+	- Implement env builtin with flag (TODO)
+ 	- Check libft (TODo)
+	- Finish flag for cd builtin (TODO)
