@@ -32,52 +32,93 @@ int		my_env(char **cmd)
 	}
 	else
 	{
-		if (cmd[i][0] == '-')
+		if (ft_strcmp(cmd[i], "-i")== 0)
 		{
-			if (cmd[i][1] == 'i' || !cmd[i][1])
-			{
-					j = i++;
-					while (cmd[i] && ft_strchr(cmd[i], '='))
-					{
-							s++;
-							i++;
-					}
-					if (s > 0)
-					{
-						if ((n_env = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
-							return (ALLOC_ERROR);
-						while (s--)
-							n_env[c++] = ft_strdup(cmd[j++]);
-						n_env[c] = NULL;
-					}
-					else
-						n_env = NULL;
-					s = 0;
-					j = i;
-					while (cmd[i])
-					{
-						i++;
+				j = i++;
+				while (cmd[i] && ft_strchr(cmd[i], '='))
+				{
 						s++;
-					}
-					if (s > 0)
-					{
-						if ((n_cmd = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
-							return (ALLOC_ERROR);
-						c = 0;
-						
-						while (s--)
-							n_cmd[c++] = ft_strdup(cmd[j++]);
-						n_cmd[c] = NULL;
-					}
-					else
-					{
-						n_cmd = NULL;
-						free_tab(cmd);
-						return (0);
-					}
+						i++;
+				}
+				if (s > 0)
+				{
+					if ((n_env = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
+						return (ALLOC_ERROR);
+					while (s--)
+						n_env[c++] = ft_strdup(cmd[j++]);
+					n_env[c] = NULL;
+				}
+				else
+					n_env = NULL;
+				s = 0;
+				j = i;
+				while (cmd[i])
+				{
+					i++;
+					s++;
+				}
+				if (s > 0)
+				{
+					if ((n_cmd = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
+						return (ALLOC_ERROR);
+					c = 0;
+					while (s--)
+						n_cmd[c++] = ft_strdup(cmd[j++]);
+					n_cmd[c] = NULL;
+				}
+				else
+				{
+					n_cmd = NULL;
 					free_tab(cmd);
-					return (search_path(n_cmd, "PATH", n_env));
+					return (0);
+				}
+				free_tab(cmd);
+				return (search_path(n_cmd, "PATH", n_env));
+		}
+		else
+		{
+			while (cmd[i] && ft_strchr(cmd[i], '='))
+			{
+				s++;
+				i++;
 			}
+			if (s > 0)
+			{
+				char **tmp;
+				int		size;
+				c = 0;
+				int k = 0;
+
+				tmp = cpy_env();
+				size = env_list.count;
+				if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
+					return (ALLOC_ERROR);
+				while (size--)
+					n_env[k] = ft_strdup(tmp[k++]);
+				while (s--)
+					n_env[k++] = ft_strdup(cmd[i++]);
+				n_env[c] = NULL;
+			}
+			else
+				n_env = cpy_env();
+			s = 0;
+			j = i;
+			while (cmd[i])
+			{
+				i++;
+				s++;
+			}
+			if (s > 0)
+			{
+				if ((n_cmd = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
+					return (ALLOC_ERROR);
+				c = 0;
+				while (s--)
+					n_cmd[c++] = ft_strdup(cmd[j++]);
+				n_cmd[c] = NULL;
+			}
+			free_tab(cmd);
+			return (search_path(n_cmd, "PATH", n_env));
 		}
 		return (free_tab(cmd));
 	}

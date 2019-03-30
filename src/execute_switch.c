@@ -14,19 +14,8 @@
 
 int		run(pid_t proc, char *path, char **cmd, char **n_env)
 {
-	//char	**cp_env;
-
 	if (proc == 0)
-	{
-		//if (!n_env)
-		//{
-		//	cp_env = cpy_env();
-			//execve(path, cmd, cp_env);
-		//}
-		//else
 			execve(path, cmd, n_env);
-
-	}
 	else if (proc < 0)
 	{
 		ft_putendl("Fork failed");
