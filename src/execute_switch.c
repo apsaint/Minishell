@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 16:56:38 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/31 12:11:03 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		run(pid_t proc, char *path, char **cmd, char **n_env)
 {
 	if (proc == 0)
-			execve(path, cmd, n_env);
+		execve(path, cmd, n_env);
 	else if (proc < 0)
 	{
 		ft_putendl("Fork failed");
@@ -88,7 +88,6 @@ int		course_path(char **cmd, char **n_env, int ind)
 	int		i;
 
 	i = -1;
-
 	tmp = ft_strsplit(n_env[ind], '=');
 	path = ft_strsplit(tmp[1], ':');
 	while (path[++i])
