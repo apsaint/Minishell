@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 09:00:13 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 15:00:57 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/31 12:01:07 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		my_env(char **cmd)
 	}
 	else
 	{
-		if (ft_strcmp(cmd[i], "-i")== 0)
+		if (ft_strcmp(cmd[i], "-i") == 0)
 		{
-				j = i++;
+				j = ++i;
 				while (cmd[i] && ft_strchr(cmd[i], '='))
 				{
 						s++;
@@ -69,6 +69,13 @@ int		my_env(char **cmd)
 				else
 				{
 					n_cmd = NULL;
+					i = 0;
+					if (n_env)
+					{
+						while (n_env[i])
+							ft_putendl(n_env[i++]);
+						free_tab(n_env);
+					}
 					free_tab(cmd);
 					return (0);
 				}
@@ -77,11 +84,13 @@ int		my_env(char **cmd)
 		}
 		else
 		{
+			j = i;
 			while (cmd[i] && ft_strchr(cmd[i], '='))
 			{
 				s++;
 				i++;
 			}
+			printf("%d %d\n", i, j);
 			if (s > 0)
 			{
 				char **tmp;
@@ -94,10 +103,11 @@ int		my_env(char **cmd)
 				if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
 					return (ALLOC_ERROR);
 				while (size--)
-					n_env[k] = ft_strdup(tmp[k++]);
+					n_env[c++] = ft_strdup(tmp[k++]);
 				while (s--)
-					n_env[k++] = ft_strdup(cmd[i++]);
+					n_env[c++] = ft_strdup(cmd[j++]);
 				n_env[c] = NULL;
+				free_tab(tmp);
 			}
 			else
 				n_env = cpy_env();
@@ -116,6 +126,19 @@ int		my_env(char **cmd)
 				while (s--)
 					n_cmd[c++] = ft_strdup(cmd[j++]);
 				n_cmd[c] = NULL;
+			}
+			else
+			{
+				i = 0;
+				n_cmd = NULL;
+				if (n_env)
+				{
+					while (n_env[i])
+						ft_putendl(n_env[i++]);
+					free_tab(n_env);
+				}
+				free_tab(cmd);
+				return (0);
 			}
 			free_tab(cmd);
 			return (search_path(n_cmd, "PATH", n_env));
