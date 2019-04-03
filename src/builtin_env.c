@@ -6,12 +6,12 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 09:00:13 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/31 13:41:33 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 08:40:35 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
+#include "stdio.h"
 
 int		my_env_exe(char **cmd, int ind, char **n_env)
 {
@@ -27,7 +27,7 @@ int		my_env_exe(char **cmd, int ind, char **n_env)
 		if ((n_cmd = (char **)malloc(sizeof(char *) * (size + 1))) == NULL)
 			return (ALLOC_ERROR);
 		j = 0;
-		ind -= size;
+		ind -= size > 0;
 		while (size--)
 			n_cmd[j++] = ft_strdup(cmd[ind++]);
 		n_cmd[j] = NULL;
@@ -100,7 +100,7 @@ int		my_env(char **cmd)
 				free_tab(cmd);
 				return (0);
 			}
-			return (my_env_i(cmd, i));
+			return (my_env_i(cmd, ++i));
 		}
 		else
 		{

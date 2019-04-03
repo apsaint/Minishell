@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/28 11:26:50 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/04/03 15:08:16 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ CFLAGS += -Wall
 CFLAGS += -Werror
 CFLAGS += -Wextra
 CFLAGS += -g
+#CFLAGS += -fsanitize=address
 CFLAGS += -I $(INC_DIR)/ -I $(LIBFT_HEADERS)/
 CLIBS += -L $(LIBFT_DIR)
 MKDIR:= mkdir -p

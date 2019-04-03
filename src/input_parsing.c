@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 13:27:21 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 08:51:03 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:27:51 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	**ft_strsplit_input(char *str, char c)
 	int		j;
 
 	i = -1;
-	cmd = ft_strsplit(str, c);
+	cmd = ft_strsplit_space(str, c);
 	while (cmd[++i])
 	{
 		j = -1;

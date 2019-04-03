@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 16:26:38 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:25:10 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,18 @@ int		add_var_env(t_env *env, char *var, char *name)
 		ft_strncpy(env->name, var, i);
 		ft_strcpy(env->value, ++ptr);
 	}
+	else if (!var)
+	{
+		ft_putendl("minishell: setenv: invalid args number");
+		ft_putendl("setenv: usage: setenv [name] [value]");
+	}
 	else
 	{
 		ft_strcpy(env->name, name);
-		ft_strcpy(env->value, var);
+		if (var)
+			ft_strcpy(env->value, var);
+		else
+			ft_bzero(env->value, 4097);
 	}
 	return (0);
 }
@@ -51,11 +59,13 @@ int		add_var_env(t_env *env, char *var, char *name)
 int		find_env_var(char *str)
 {
 	int i;
+	int	c;
 
 	i = 0;
+	c = 1;
 	while (i < env_list.size)
 	{
-		if (ft_strcmp(str, env_list.data[i].name) == 0)
+		if ((c = ft_strcmp(str, env_list.data[i].name)) == 0)
 			return (i);
 		i++;
 	}

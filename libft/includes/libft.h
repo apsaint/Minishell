@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 12:30:06 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/27 13:23:57 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 15:27:36 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int				ft_strequ(char const *s1, char const *s2);
 int				ft_strnequ(char const *s1, char const *s2, size_t n);
 int				ft_countwords(char *str, char c);
 char			**ft_strsplit(char const *s, char c);
+char			**ft_strsplit_space(char const *s, char c);
 char			*ft_strrev(char *str);
 char			*ft_strnew(size_t size);
 char			*ft_strmap(char const *s, char (*f)(char));

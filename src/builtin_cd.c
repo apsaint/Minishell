@@ -6,14 +6,13 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:12:45 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/26 14:22:00 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:00:36 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
-char	*get_prec_path(char *new_path)
+char	*get_prec_path(char *new_path, char *av)
 {
 	char	*ptr;
 	int		size;
@@ -23,6 +22,11 @@ char	*get_prec_path(char *new_path)
 	ptr = ft_strrchr(path, '/');
 	size = ft_strlen(path) - ft_strlen(ptr);
 	ft_strncpy(new_path, path, size);
+	if (ft_strcmp(av, "..") != 0)
+	{
+		ptr = ft_strchr(av, '/');
+		ft_strcat(new_path, ptr);
+	}
 	return (new_path);
 }
 
@@ -40,7 +44,7 @@ int		check_options(char *s)
 		i++;
 	}
 	if (s[size - 1] == 'L')
-		return (0);
+		return (2);
 	else if (s[size - 1] == 'P')
 		return (1);
 	return (-1);
@@ -51,14 +55,14 @@ char	*get_new_path(int opt, char **av)
 	int			i;
 	static char	new_path[4097];
 
-	i = 1 + opt;
+	i = (opt == 0) ? 1 : 2;
 	ft_strclr(new_path);
 	if (av[i][0] == '/')
 		ft_strcpy(new_path, av[i]);
 	else
 	{
-		if (ft_strcmp(av[i], "..") == 0)
-			get_prec_path(new_path);
+		if (ft_strstr(av[i], ".."))
+			get_prec_path(new_path, av[i]);
 		else
 		{
 			getcwd(new_path, sizeof(new_path));

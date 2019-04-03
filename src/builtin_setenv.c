@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 09:34:43 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/31 13:07:37 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 11:26:34 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@ int		set_env_var(char *name, char *value)
 {
 	int		i;
 
+	i = -1;
 	if ((i = find_env_var(name)) != -1)
-		ft_strcpy(env_list.data[i].value, value);
+	{
+		if (value)
+			ft_strcpy(env_list.data[i].value, value);
+		else
+			ft_bzero(env_list.data[i].value, 4097);
+	}
 	else
 	{
 		if (env_list.count == env_list.size)
