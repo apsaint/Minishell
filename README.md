@@ -58,6 +58,10 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 	- Delete gnl and check leak (DONE)
 
 # DAY 11 #
-	- Implement env builtin with flag (TODO)
- 	- Check libft (TODo)
-	- Finish flag for cd builtin (TODO)
+	- Implement env builtin with flag (IN PROGRESS)
+ 	- Check libft (TODO)
+	- Finish flag for cd builtin (DONE)
+# DAY 12 #
+	- Check pipe and file input (DONE)
+	- Regulate Shell level env (TODO)
+	- Regulate exec of name similar to existing executable (IN PROGRESS)
