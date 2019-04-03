@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 11:25:10 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:22:18 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		init_venv(int ac, char **av, char **env)
 {
 	int		size;
 	int		i;
+	int		a;
+	char	tmp[255];
 
 	(void)ac;
 	(void)av;
@@ -88,6 +90,13 @@ int		init_venv(int ac, char **av, char **env)
 	env_list.size = size;
 	while (env_list.count != size)
 		add_var_env(&env_list.data[env_list.count++], env[i++], NULL);
+	if ((i = find_env_var("SHLVL")) != -1)
+	{
+		a = ft_atoi(env_list.data[i].value) + 1;
+		tmp[0] = a + '0';
+		tmp[1] = '\0';
+		ft_strcpy(env_list.data[i].value, tmp);
+	}
 	return (0);
 }
 

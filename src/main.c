@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:17:19 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 15:42:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:05:47 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int ac, char **av, char **env)
 	while (42)
 	{
 		i = 0;
-		if (fstat(STDIN_FILENO, &fs))
+		if (fstat(STDIN_FILENO, &fs) == 0)
 			if (!S_ISFIFO(fs.st_mode) && !S_ISREG(fs.st_mode))
 				ft_putstr("minishell> ");
 		if ((ret = get_cmd(&input)) == -1)
