@@ -5,3 +5,4 @@ libft/
 *.o
 *.a
 noacc/
+test
