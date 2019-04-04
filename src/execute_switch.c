@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/04 14:05:18 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/04 17:24:57 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,14 +138,13 @@ int		search_path(char **cmd, char *str, char **n_env)
 
 	if (!cmd[0])
 		return (free_tab(cmd));
-	if (cmd[0][1] == '.')
+	if (cmd[0][0] == '.')
 	{
 		getcwd(pwd, sizeof(pwd));
 		ft_strlcat(pwd, "/", sizeof(pwd));
 		ft_strlcat(pwd, cmd[0], sizeof(pwd));
-		ft_putendl(pwd);
 	}
-	else if (cmd[0][1] == '/')
+	else if (cmd[0][0] == '/')
 		ft_strcpy(pwd, cmd[0]);
 	if (exe_cmd(pwd, cmd, n_env) != -1)
 	{
