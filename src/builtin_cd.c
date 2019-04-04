@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:12:45 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 10:00:36 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/04 09:04:46 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		check_options(char *s)
 
 	size = ft_strlen(s);
 	i = 1;
+	if (ft_strcmp(s, "-") == 0)
+		return (-2);
 	while (s[i])
 	{
 		if (s[i] != 'L' && s[i] != 'P')
@@ -77,6 +79,16 @@ int		change_dir(int opt, char **av)
 {
 	char	new_path[4097];
 
+	if (opt == -2)
+	{
+		if (find_env_var("HOME") != -1)
+			ft_strcpy(new_path, env_list.data[find_env_var("HOME")].value);
+		else
+			return (0);
+		chdir(new_path);
+		ft_putendl("~");
+		return (set_env_var("PWD", new_path));
+	}
 	ft_strcpy(new_path, get_new_path(opt, av));
 	if ((access(new_path, F_OK)) != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 10:53:05 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/04 14:05:18 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int		exe_cmd(char *path_cmd, char **cmd, char **n_env)
 {
 	struct stat		fs;
 	pid_t			new_proc;
+	int				s;
 
-	if (stat(path_cmd, &fs) == -1)
+	if ((s = stat(path_cmd, &fs)) == -1)
 		return (ARG_ERROR);
 	else
 	{
@@ -142,8 +143,9 @@ int		search_path(char **cmd, char *str, char **n_env)
 		getcwd(pwd, sizeof(pwd));
 		ft_strlcat(pwd, "/", sizeof(pwd));
 		ft_strlcat(pwd, cmd[0], sizeof(pwd));
+		ft_putendl(pwd);
 	}
-	else
+	else if (cmd[0][1] == '/')
 		ft_strcpy(pwd, cmd[0]);
 	if (exe_cmd(pwd, cmd, n_env) != -1)
 	{
