@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 09:00:13 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 16:00:12 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/05 16:15:25 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,6 @@ int		my_env_no_param(char **cmd, int i)
 	s = 0;
 	j = 0;
 	k = 0;
-	//c = 0;
-	/*
-	while (cmd[i] && ft_strchr(cmd[i], '='))
-	{
-		s++;
-		i++;
-	}*/
 	if (ft_strchr(cmd[i], '='))
 	{
 		tmp = cpy_env();
@@ -102,29 +95,6 @@ int		my_env_no_param(char **cmd, int i)
 	else
 		n_env = cpy_env();
 	return (my_env_exe(cmd, i, n_env));
-	//s = 0;
-	//j = i;
-	/*while (cmd[i])
-	{
-		i++;
-		s++;
-	}
-	if (cmd[i])
-	{
-		if ((n_cmd = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
-			return (ALLOC_ERROR);
-		c = 0;
-		while (s--)
-			n_cmd[c++] = ft_strdup(cmd[j++]);
-		n_cmd[c] = NULL;
-	}
-	else
-	{
-		n_cmd = NULL;
-		return (my_env_no_cmd(n_env, cmd));
-	}
-	free_tab(cmd);
-	return (search_path(n_cmd, "PATH", n_env));*/
 }
 
 int		my_env(char **cmd)
@@ -147,7 +117,7 @@ int		my_env(char **cmd)
 		}
 		else
 		{
-			if (cmd[i-1][0] == '-')
+			if (cmd[i - 1][0] == '-')
 				return (my_env_error(cmd));
 			if (!cmd[i])
 				return (free_tab(cmd));
