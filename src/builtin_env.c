@@ -6,14 +6,13 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 09:00:13 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/04 13:50:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/05 16:00:12 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "stdio.h"
 
-int		my_env_exe(char **cmd,int ind, char **n_env)
+int		my_env_exe(char **cmd, int ind, char **n_env)
 {
 	int		j;
 	int		size;
@@ -35,14 +34,7 @@ int		my_env_exe(char **cmd,int ind, char **n_env)
 	else
 	{
 		n_cmd = NULL;
-		if (n_env)
-		{
-			while (n_env[size])
-				ft_putendl(n_env[size++]);
-			free_tab(n_env);
-		}
-		free_tab(cmd);
-		return (0);
+		return (my_env_no_cmd(n_env, cmd));
 	}
 	free_tab(cmd);
 	return (search_path(n_cmd, "PATH", n_env));
@@ -72,38 +64,74 @@ int		my_env_i(char **cmd, int i)
 	return (my_env_exe(cmd, i, n_env));
 }
 
-/*
-int		switch_command_env(char **cmd, char **env)
+int		my_env_no_param(char **cmd, int i)
 {
-	if (cmd[0] && ft_strcmp(cmd[0], "exit") == 0)
+	int		s;
+	int		j;
+	int		k;
+	int		size;
+	char	**n_env;
+	char	**tmp;
+
+	s = 0;
+	j = 0;
+	k = 0;
+	//c = 0;
+	/*
+	while (cmd[i] && ft_strchr(cmd[i], '='))
 	{
-		free_tab(cmd);
-		return (-1);
+		s++;
+		i++;
+	}*/
+	if (ft_strchr(cmd[i], '='))
+	{
+		tmp = cpy_env();
+		while (cmd[i])
+			s += (ft_strchr(cmd[i++], '=')) ? 1 : 0;
+		i -= s;
+		size = env_list.count;
+		if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
+			return (ALLOC_ERROR);
+		while (size--)
+			n_env[j++] = ft_strdup(tmp[k++]);
+		while (s--)
+			n_env[j++] = ft_strdup(cmd[i++]);
+		n_env[j] = NULL;
+		free_tab(tmp);
 	}
-	else if (cmd[0] && ft_strcmp(cmd[0], "cd") == 0)
-		return (my_cd_env(cmd, env));
-	else if (cmd[0] && ft_strcmp(cmd[0], "env") == 0)
-		return (my_env_env(cmd,env));
-	else if (cmd[0] && ft_strcmp(cmd[0], "echo") == 0)
-		return (my_echo(cmd));
 	else
-		return (search_path(cmd, "PATH", env));
+		n_env = cpy_env();
+	return (my_env_exe(cmd, i, n_env));
+	//s = 0;
+	//j = i;
+	/*while (cmd[i])
+	{
+		i++;
+		s++;
+	}
+	if (cmd[i])
+	{
+		if ((n_cmd = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
+			return (ALLOC_ERROR);
+		c = 0;
+		while (s--)
+			n_cmd[c++] = ft_strdup(cmd[j++]);
+		n_cmd[c] = NULL;
+	}
+	else
+	{
+		n_cmd = NULL;
+		return (my_env_no_cmd(n_env, cmd));
+	}
+	free_tab(cmd);
+	return (search_path(n_cmd, "PATH", n_env));*/
 }
-*/
 
 int		my_env(char **cmd)
 {
-	int		i;
-	int		s;
-	int		j;
-	int		c;
-	char	**n_env;
-	char	**n_cmd;
+	int i;
 
 	i = 1;
-	s = 0;
-	j = 0;
-	c = 0;
 	if (!cmd[i])
 	{
 		free_tab(cmd);
@@ -114,71 +142,16 @@ int		my_env(char **cmd)
 		if (ft_strcmp(cmd[i++], "-i") == 0)
 		{
 			if (!cmd[i])
-			{
-				free_tab(cmd);
-				return (0);
-			}
+				return (free_tab(cmd));
 			return (my_env_i(cmd, i));
 		}
 		else
 		{
-			j = i;
-			while (cmd[i] && ft_strchr(cmd[i], '='))
-			{
-				s++;
-				i++;
-			}
-			if (s > 0)
-			{
-				char **tmp;
-				int		size;
-				c = 0;
-				int k = 0;
-
-				tmp = cpy_env();
-				size = env_list.count;
-				if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
-					return (ALLOC_ERROR);
-				while (size--)
-					n_env[c++] = ft_strdup(tmp[k++]);
-				while (s--)
-					n_env[c++] = ft_strdup(cmd[j++]);
-				n_env[c] = NULL;
-				free_tab(tmp);
-			}
-			else
-				n_env = cpy_env();
-			s = 0;
-			j = i;
-			while (cmd[i])
-			{
-				i++;
-				s++;
-			}
-			if (s > 0)
-			{
-				if ((n_cmd = (char **)malloc(sizeof(char *) * (s + 1))) == NULL)
-					return (ALLOC_ERROR);
-				c = 0;
-				while (s--)
-					n_cmd[c++] = ft_strdup(cmd[j++]);
-				n_cmd[c] = NULL;
-			}
-			else
-			{
-				i = 0;
-				n_cmd = NULL;
-				if (n_env)
-				{
-					while (n_env[i])
-						ft_putendl(n_env[i++]);
-					free_tab(n_env);
-				}
-				free_tab(cmd);
-				return (0);
-			}
-			free_tab(cmd);
-			return (search_path(n_cmd, "PATH", n_env));
+			if (cmd[i-1][0] == '-')
+				return (my_env_error(cmd));
+			if (!cmd[i])
+				return (free_tab(cmd));
+			return (my_env_no_param(cmd, i));
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 16:22:18 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/05 11:54:54 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ int		add_var_env(t_env *env, char *var, char *name)
 			i++;
 		ft_strncpy(env->name, var, i);
 		ft_strcpy(env->value, ++ptr);
-	}
-	else if (!var)
-	{
-		ft_putendl("minishell: setenv: invalid args number");
-		ft_putendl("setenv: usage: setenv [name] [value]");
 	}
 	else
 	{

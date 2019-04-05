@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 09:11:48 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 11:26:18 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/05 15:31:34 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,32 @@ void		gestion_sig(int sig);
 int			search_path(char **cmd, char *str, char **n_env);
 
 /* Functions builtin */
-int			switch_command(char *cmd);
 int			my_echo(char **av);
 int			my_cd(char **av);
 int			my_set_env(char **cmd);
 int			my_unset_env(char **cmd);
 int			my_env(char **cmd);
 
-/* Functions utils*/
+/* Functions switch */
+int			switch_command(char *cmd);
+int			get_pwd(char *c, char **cmd);
+
+/* Functions utils */
 int			get_table_size(char **av);
 int			free_tab(char **tab);
 void		resize_tab(char **tab, int i);
 char		**remove_space(char **str);
 char		**ft_strsplit_input(char *str, char c);
 char		*get_value(char *cmd, int *j);
+
+/* Functions utils_cd */
+char		*get_prec_path(char *new_path, char *av);
+char		*get_new_path(int opt, char **av);
+
+/* Functions utils_env */
+int			find_env_path(char *str, char **n_env);
+int			my_env_error(char **cmd);
+int			my_env_no_cmd(char **n_env, char **cmd);
 
 /* Functions environement*/
 int			init_venv(int ac, char **av, char **env);

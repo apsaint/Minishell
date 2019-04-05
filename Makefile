@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/04/04 08:40:28 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/04/05 10:48:07 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,9 @@ SRC+= $(SRC_DIR)/builtin_setenv.c
 SRC+= $(SRC_DIR)/builtin_env.c
 SRC+= $(SRC_DIR)/execute_switch.c
 SRC+= $(SRC_DIR)/utils.c
+SRC+= $(SRC_DIR)/switch.c
+SRC+= $(SRC_DIR)/utils_cd.c
+SRC+= $(SRC_DIR)/utils_env.c
 SRC+= $(SRC_DIR)/input_parsing.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 

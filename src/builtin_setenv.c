@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 09:34:43 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 11:26:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/05 11:56:47 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		set_env_var(char *name, char *value)
 {
 	int		i;
 
-	i = -1;
 	if ((i = find_env_var(name)) != -1)
 	{
 		if (value)
@@ -26,7 +25,13 @@ int		set_env_var(char *name, char *value)
 	}
 	else
 	{
-		if (env_list.count == env_list.size)
+		if (!value)
+		{
+			ft_putendl("minishell: setenv: invalid args number");
+			ft_putendl("setenv: usage: setenv [name] [value]");
+			return (0);
+		}
+		else if (env_list.count == env_list.size)
 		{
 			if (resize_array(&env_list) == ALLOC_ERROR)
 				return (ALLOC_ERROR);

@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/04 17:24:57 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:27:26 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ int		exe_cmd(char *path_cmd, char **cmd, char **n_env)
 {
 	struct stat		fs;
 	pid_t			new_proc;
-	int				s;
 
-	if ((s = stat(path_cmd, &fs)) == -1)
+	if (stat(path_cmd, &fs) == -1)
 		return (ARG_ERROR);
 	else
 	{
@@ -108,45 +107,16 @@ int		course_path(char **cmd, char **n_env, int ind)
 	return (1);
 }
 
-int		find_env_path(char *str, char **n_env)
-{
-	char	**tmp;
-	int		i;
-
-	i = 0;
-	if (n_env == NULL)
-		return (ENV_ERROR);
-	while (n_env[i])
-	{
-		tmp = ft_strsplit(n_env[i], '=');
-		if (ft_strcmp(tmp[0], str) == 0)
-		{
-			free_tab(tmp);
-			return (i);
-		}
-		free_tab(tmp);
-		i++;
-	}
-	return (ENV_ERROR);
-}
-
 int		search_path(char **cmd, char *str, char **n_env)
 {
 	int		ret;
-	char	pwd[4097];
+	char	c[4097];
 	int		ind;
 
 	if (!cmd[0])
 		return (free_tab(cmd));
-	if (cmd[0][0] == '.')
-	{
-		getcwd(pwd, sizeof(pwd));
-		ft_strlcat(pwd, "/", sizeof(pwd));
-		ft_strlcat(pwd, cmd[0], sizeof(pwd));
-	}
-	else if (cmd[0][0] == '/')
-		ft_strcpy(pwd, cmd[0]);
-	if (exe_cmd(pwd, cmd, n_env) != -1)
+	get_pwd(c, cmd);
+	if (exe_cmd(c, cmd, n_env) != -1)
 	{
 		if (n_env != NULL)
 			free_tab(n_env);
@@ -163,29 +133,4 @@ int		search_path(char **cmd, char *str, char **n_env)
 	if (n_env != NULL)
 		free_tab(n_env);
 	return (free_tab(cmd));
-}
-
-int		switch_command(char *c)
-{
-	char	**cmd;
-
-	cmd = ft_strsplit_input(c, ' ');
-	if (cmd[0] && ft_strcmp(cmd[0], "exit") == 0)
-	{
-		free_tab(cmd);
-		return (-1);
-	}
-	else if (cmd[0] && ft_strcmp(cmd[0], "cd") == 0)
-		return (my_cd(cmd));
-	else if (cmd[0] && ft_strcmp(cmd[0], "echo") == 0)
-		return (my_echo(cmd));
-	else if (cmd[0] && ft_strcmp(cmd[0], "env") == 0)
-		return (my_env(cmd));
-	else if (cmd[0] && ft_strcmp(cmd[0], "setenv") == 0)
-		return (my_set_env(cmd));
-	else if (cmd[0] && ft_strcmp(cmd[0], "unsetenv") == 0)
-		return (my_unset_env(cmd));
-	else
-		return (search_path(cmd, "PATH", cpy_env()));
-	return (0);
 }
