@@ -129,7 +129,7 @@ int		search_path(char **cmd, char *str, char **n_env)
 	}
 	ft_putstr("minishell: ");
 	ft_putstr(cmd[0]);
-	ft_putendl(": No such file or directory");
+	ft_putendl(": command not found");
 	if (n_env != NULL)
 		free_tab(n_env);
 	return (free_tab(cmd));
