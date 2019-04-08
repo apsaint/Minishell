@@ -64,24 +64,49 @@ int		my_env_i(char **cmd, int i)
 	return (my_env_exe(cmd, i, n_env));
 }
 
-int		my_env_no_param(char **cmd, int i)
+char		**add_new_env(char **cmd, int k, int i, int j)
 {
-	int		s;
-	int		j;
-	int		k;
-	int		size;
-	char	**n_env;
 	char	**tmp;
+	char	**n_env;
+	int		s;
+	int		size;
 
 	s = 0;
+	tmp = cpy_env();
+	while (cmd[i] && ft_strchr(cmd[i++], '='))
+		s++;
+	i -= (s + 1);
+	size = env_list.count;
+	if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
+		return (NULL);
+	while (size--)
+		n_env[j++] = ft_strdup(tmp[k++]);
+	while (s--)
+		n_env[j++] = ft_strdup(cmd[i++]);
+	n_env[j] = NULL;
+	free_tab(tmp);
+	return (n_env);
+}
+
+int		my_env_no_param(char **cmd, int i)
+{
+	//int		s;
+	int		j;
+	int		k;
+	//int		size;
+	char	**n_env;
+	//char	**tmp;
+
+	//s = 0;
 	j = 0;
 	k = 0;
 	if (ft_strchr(cmd[i], '='))
 	{
+		/*
 		tmp = cpy_env();
-		while (cmd[i])
-			s += (ft_strchr(cmd[i++], '=')) ? 1 : 0;
-		i -= s;
+		while (cmd[i] && ft_strchr(cmd[i++], '='))
+			s++;
+		i -= (s + 1);
 		size = env_list.count;
 		if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
 			return (ALLOC_ERROR);
@@ -91,6 +116,10 @@ int		my_env_no_param(char **cmd, int i)
 			n_env[j++] = ft_strdup(cmd[i++]);
 		n_env[j] = NULL;
 		free_tab(tmp);
+		*/
+		n_env = add_new_env(cmd, k, i, j);
+		while (cmd[i] && ft_strchr(cmd[i], '='))
+			i++;
 	}
 	else
 		n_env = cpy_env();
@@ -117,7 +146,7 @@ int		my_env(char **cmd)
 		}
 		else
 		{
-			if (cmd[i - 1][0] == '-')
+			if (cmd[--i][0] == '-')
 				return (my_env_error(cmd));
 			if (!cmd[i])
 				return (free_tab(cmd));
