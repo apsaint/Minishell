@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:17:19 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 13:02:37 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:21:12 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		pipe_manage(void)
 		if (!S_ISFIFO(fs.st_mode) && !S_ISREG(fs.st_mode))
 			ft_putstr("minishell> ");
 	}
+	signal(SIGINT, gestion_sig);
 	return (0);
 }
 
@@ -50,5 +51,5 @@ int		main(int ac, char **av, char **env)
 		if (ret == -1)
 			break ;
 	}
-	free_env(&env_list);
+	return (free_env(&g_env_list));
 }

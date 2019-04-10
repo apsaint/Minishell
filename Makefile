@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/04/05 10:48:07 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/04/09 11:35:51 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,6 @@ LINK = gcc
 CFLAGS += -Wall
 CFLAGS += -Werror
 CFLAGS += -Wextra
-CFLAGS += -g
-#CFLAGS += -fsanitize=address
 CFLAGS += -I $(INC_DIR)/ -I $(LIBFT_HEADERS)/
 CLIBS += -L $(LIBFT_DIR)
 MKDIR:= mkdir -p

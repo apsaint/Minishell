@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 09:34:43 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 11:56:47 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:25:12 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		set_env_var(char *name, char *value)
 	if ((i = find_env_var(name)) != -1)
 	{
 		if (value)
-			ft_strcpy(env_list.data[i].value, value);
+			ft_strcpy(g_env_list.data[i].value, value);
 		else
-			ft_bzero(env_list.data[i].value, 4097);
+			ft_bzero(g_env_list.data[i].value, 4097);
 	}
 	else
 	{
@@ -31,12 +31,12 @@ int		set_env_var(char *name, char *value)
 			ft_putendl("setenv: usage: setenv [name] [value]");
 			return (0);
 		}
-		else if (env_list.count == env_list.size)
+		else if (g_env_list.count == g_env_list.size)
 		{
-			if (resize_array(&env_list) == ALLOC_ERROR)
+			if (resize_array(&g_env_list) == ALLOC_ERROR)
 				return (ALLOC_ERROR);
 		}
-		add_var_env(&env_list.data[env_list.count++], value, name);
+		add_var_env(&g_env_list.data[g_env_list.count++], value, name);
 	}
 	return (0);
 }
@@ -51,13 +51,13 @@ int		remove_env_var(char *name)
 		ft_putendl(": does not exist in environnement");
 		return (ENV_ERROR);
 	}
-	while (ind < env_list.count)
+	while (ind < g_env_list.count)
 	{
-		ft_strcpy(env_list.data[ind].name, env_list.data[ind + 1].name);
-		ft_strcpy(env_list.data[ind].value, env_list.data[ind + 1].value);
+		ft_strcpy(g_env_list.data[ind].name, g_env_list.data[ind + 1].name);
+		ft_strcpy(g_env_list.data[ind].value, g_env_list.data[ind + 1].value);
 		ind++;
 	}
-	env_list.count--;
+	g_env_list.count--;
 	return (0);
 }
 
@@ -66,11 +66,11 @@ int		print_env(void)
 	int i;
 
 	i = 0;
-	while (i != env_list.count)
+	while (i != g_env_list.count)
 	{
-		ft_putstr(env_list.data[i].name);
+		ft_putstr(g_env_list.data[i].name);
 		ft_putchar('=');
-		ft_putendl(env_list.data[i++].value);
+		ft_putendl(g_env_list.data[i++].value);
 	}
 	return (0);
 }

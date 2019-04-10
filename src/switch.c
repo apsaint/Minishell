@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:34:51 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 11:25:41 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:13:59 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int		switch_command(char *c)
 		return (my_set_env(cmd));
 	else if (cmd[0] && ft_strcmp(cmd[0], "unsetenv") == 0)
 		return (my_unset_env(cmd));
-	else
+	else if (cmd[0])
 		return (search_path(cmd, "PATH", cpy_env()));
+	free_tab(cmd);
 	return (0);
 }

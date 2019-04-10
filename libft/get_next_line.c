@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 09:20:46 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/20 11:29:23 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:36:32 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int		get_next_line(int const fd, char **line)
 	char			*buf;
 	int				b;
 
-	if (check_error(line, fd, keep) == -1 ||
-			!(buf = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
+	if (check_error(line, fd, keep) == -1
+		|| !(buf = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
 		return (-1);
 	if (keep[fd])
 		if (analyse_lec(&keep[fd], line))

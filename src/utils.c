@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 10:37:28 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/28 08:50:24 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:21:55 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ int		get_table_size(char **env)
 	return (i);
 }
 
-void	free_env(t_envlist *env_list)
+int		free_env(t_envlist *g_env_list)
 {
-	free(env_list->data);
-	ft_memset(env_list, 0, sizeof(env_list));
+	free(g_env_list->data);
+	ft_memset(g_env_list, 0, sizeof(g_env_list));
+	return (0);
 }
 
 void	resize_tab(char **tab, int i)
@@ -85,7 +86,7 @@ char	*get_value(char *cmd, int *j)
 	name = ft_strsub(cmd, *j, size);
 	*j = p;
 	if ((p = (find_env_var(name))) != -1)
-		val = ft_strdup(env_list.data[p].value);
+		val = ft_strdup(g_env_list.data[p].value);
 	free(name);
 	if (p == -1)
 		return (NULL);

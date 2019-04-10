@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 13:27:21 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 13:34:17 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:26:25 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		ft_get_home(char **cmd, int j, int ind)
 			return (-1);
 		if (cmd[ind][j] == '/' || cmd[ind][j] == '$')
 		{
-			home = ft_strdup(env_list.data[find_env_var("HOME")].value);
+			home = ft_strdup(g_env_list.data[find_env_var("HOME")].value);
 			size = ft_strlen(cmd[ind]) - j;
 			tmp = ft_strsub(cmd[ind], j, size);
 			free(cmd[ind]);
@@ -116,7 +116,7 @@ int		ft_get_home(char **cmd, int j, int ind)
 		else if (!cmd[ind][j])
 		{
 			free(cmd[ind]);
-			cmd[ind] = ft_strdup(env_list.data[find_env_var("HOME")].value);
+			cmd[ind] = ft_strdup(g_env_list.data[find_env_var("HOME")].value);
 		}
 	}
 	return (j);

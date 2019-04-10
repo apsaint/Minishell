@@ -6,12 +6,11 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 11:54:36 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/03 15:42:22 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 09:04:22 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 int		get_input(int c, char **line, char *cmd)
 {

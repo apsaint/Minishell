@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:12:45 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 16:14:30 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:50:09 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int		change_dir_print(char **av)
 	char	old_pwd[4097];
 
 	if (find_env_var("PWD") != -1)
-		ft_strcpy(new_path, env_list.data[find_env_var("PWD")].value);
+		ft_strcpy(new_path, g_env_list.data[find_env_var("PWD")].value);
 	if (find_env_var("OLDPWD") != -1)
-		ft_strcpy(old_pwd, env_list.data[find_env_var("OLDPWD")].value);
+		ft_strcpy(old_pwd, g_env_list.data[find_env_var("OLDPWD")].value);
 	else
 		return (cd_error(av, 0));
 	set_env_var("OLDPWD", new_path);
@@ -87,9 +87,9 @@ int		change_dir(int opt, char **av)
 	{
 		if (access(new_path, X_OK) == 0)
 		{
-			chdir(new_path);
 			getcwd(old, sizeof(old));
 			set_env_var("OLDPWD", old);
+			chdir(new_path);
 			set_env_var("PWD", new_path);
 		}
 		else
@@ -101,18 +101,19 @@ int		change_dir(int opt, char **av)
 int		my_cd(char **av)
 {
 	char	home_path[4097];
+	char	old[4097];
 	int		opt;
 
 	opt = 0;
 	if (find_env_var("HOME") != -1)
-		ft_strcpy(home_path, env_list.data[find_env_var("HOME")].value);
+		ft_strcpy(home_path, g_env_list.data[find_env_var("HOME")].value);
 	if (!av[1])
 	{
 		if (find_env_var("HOME") == -1)
 			return (cd_error(av, -2));
-		chdir(home_path);
 		free_tab(av);
-		set_env_var("OLDPWD", env_list.data[find_env_var("PWD")].value);
+		set_env_var("OLDPWD", getcwd(old, sizeof(old)));
+		chdir(home_path);
 		return (set_env_var("PWD", home_path));
 	}
 	if (av[1][0] == '-')

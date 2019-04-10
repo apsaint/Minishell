@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 09:00:13 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 16:15:25 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:24:01 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		my_env_i(char **cmd, int i)
 	return (my_env_exe(cmd, i, n_env));
 }
 
-char		**add_new_env(char **cmd, int k, int i, int j)
+char	**add_new_env(char **cmd, int k, int i, int j)
 {
 	char	**tmp;
 	char	**n_env;
@@ -76,7 +76,7 @@ char		**add_new_env(char **cmd, int k, int i, int j)
 	while (cmd[i] && ft_strchr(cmd[i++], '='))
 		s++;
 	i -= (s + 1);
-	size = env_list.count;
+	size = g_env_list.count;
 	if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
 		return (NULL);
 	while (size--)
@@ -90,36 +90,18 @@ char		**add_new_env(char **cmd, int k, int i, int j)
 
 int		my_env_no_param(char **cmd, int i)
 {
-	//int		s;
+	int		s;
 	int		j;
 	int		k;
-	//int		size;
 	char	**n_env;
-	//char	**tmp;
 
-	//s = 0;
 	j = 0;
 	k = 0;
 	if (ft_strchr(cmd[i], '='))
 	{
-		/*
-		tmp = cpy_env();
-		while (cmd[i] && ft_strchr(cmd[i++], '='))
-			s++;
-		i -= (s + 1);
-		size = env_list.count;
-		if ((n_env = (char **)malloc(sizeof(char *) * ((size + s) + 1))) == NULL)
-			return (ALLOC_ERROR);
-		while (size--)
-			n_env[j++] = ft_strdup(tmp[k++]);
-		while (s--)
-			n_env[j++] = ft_strdup(cmd[i++]);
-		n_env[j] = NULL;
-		free_tab(tmp);
-		*/
 		n_env = add_new_env(cmd, k, i, j);
-		while (cmd[i] && ft_strchr(cmd[i], '='))
-			i++;
+		s = get_table_size(n_env) - g_env_list.count;
+		i += s;
 	}
 	else
 		n_env = cpy_env();

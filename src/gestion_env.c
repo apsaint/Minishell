@@ -6,23 +6,23 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 08:53:49 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 11:54:54 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:26:09 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		resize_array(t_envlist *env_list)
+int		resize_array(t_envlist *g_env_list)
 {
-	const int	new_size_in_bytes = sizeof(t_env) * (env_list->size += 2);
-	const int	bytes_to_copy = sizeof(t_env) * env_list->count;
+	const int	new_size_in_bytes = sizeof(t_env) * (g_env_list->size += 2);
+	const int	bytes_to_copy = sizeof(t_env) * g_env_list->count;
 	t_env		*tmp_array;
 
 	if ((tmp_array = (t_env *)malloc(new_size_in_bytes)) == NULL)
 		return (ALLOC_ERROR);
-	ft_memcpy(tmp_array, env_list->data, bytes_to_copy);
-	free(env_list->data);
-	env_list->data = tmp_array;
+	ft_memcpy(tmp_array, g_env_list->data, bytes_to_copy);
+	free(g_env_list->data);
+	g_env_list->data = tmp_array;
 	return (0);
 }
 
@@ -58,9 +58,9 @@ int		find_env_var(char *str)
 
 	i = 0;
 	c = 1;
-	while (i < env_list.size)
+	while (i < g_env_list.size)
 	{
-		if ((c = ft_strcmp(str, env_list.data[i].name)) == 0)
+		if ((c = ft_strcmp(str, g_env_list.data[i].name)) == 0)
 			return (i);
 		i++;
 	}
@@ -71,26 +71,24 @@ int		init_venv(int ac, char **av, char **env)
 {
 	int		size;
 	int		i;
-	int		a;
-	char	tmp[255];
+	char	*tmp;
 
 	(void)ac;
 	(void)av;
 	size = get_table_size(env);
 	i = 0;
-	if ((env_list.data = (t_env *)malloc(sizeof(t_env) * (size + 1))) == NULL)
+	if ((g_env_list.data = (t_env *)malloc(sizeof(t_env) * (size + 1))) == NULL)
 		return (ALLOC_ERROR);
-	ft_memset(env_list.data, 0, sizeof(t_env) * (size + 1));
-	env_list.count = 0;
-	env_list.size = size;
-	while (env_list.count != size)
-		add_var_env(&env_list.data[env_list.count++], env[i++], NULL);
+	ft_memset(g_env_list.data, 0, sizeof(t_env) * (size + 1));
+	g_env_list.count = 0;
+	g_env_list.size = size;
+	while (g_env_list.count != size)
+		add_var_env(&g_env_list.data[g_env_list.count++], env[i++], NULL);
 	if ((i = find_env_var("SHLVL")) != -1)
 	{
-		a = ft_atoi(env_list.data[i].value) + 1;
-		tmp[0] = a + '0';
-		tmp[1] = '\0';
-		ft_strcpy(env_list.data[i].value, tmp);
+		tmp = ft_itoa(ft_atoi(g_env_list.data[i].value) + 1);
+		ft_strcpy(g_env_list.data[i].value, tmp);
+		free(tmp);
 	}
 	return (0);
 }
@@ -102,7 +100,7 @@ char	**cpy_env(void)
 	char	**env;
 	char	tmp[4097];
 
-	size = env_list.count;
+	size = g_env_list.count;
 	i = 0;
 	if (size == 0)
 		return (NULL);
@@ -110,9 +108,9 @@ char	**cpy_env(void)
 		return (NULL);
 	while (i != size)
 	{
-		ft_strcpy(tmp, env_list.data[i].name);
+		ft_strcpy(tmp, g_env_list.data[i].name);
 		ft_strlcat(tmp, "=", 4097);
-		env[i] = ft_strjoin(tmp, env_list.data[i].value);
+		env[i] = ft_strjoin(tmp, g_env_list.data[i].value);
 		i++;
 	}
 	env[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 13:29:31 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/04/05 13:27:26 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:31:52 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		exe_cmd(char *path_cmd, char **cmd, char **n_env)
 			if (fs.st_mode & S_IXUSR)
 			{
 				new_proc = fork();
+				signal(SIGINT, gestion_sig_cmd);
 				run(new_proc, path_cmd, cmd, n_env);
 				wait(&new_proc);
 			}
