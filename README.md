@@ -7,12 +7,14 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 
 Builtins: echo, cd, env, setenv, unsetenv and exit.
 
-Bonus:
-	- Signals are handle in the minishell (Ctrl + C and Ctrl + D)
-	- ';' for multiple commandes manage
-	- Check the rights to every executable called (user rights in Path)
-
-						     ##### Road Map #####
+Bonus: <br />
+	- Signals are handle in the minishell (Ctrl + C and Ctrl + D)<br/>                                               
+	- ';' for multiple commandes manage <br />
+	- Check the rights to every executable called (user rights in Path) <br />
+	
+****************************************************************************************************************************
+						    
+						    ##### Road Map #####
 
 # DAY 01 #	
 	- Starting the shell loop(base) (DONE)
