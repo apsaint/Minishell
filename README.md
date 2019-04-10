@@ -5,6 +5,13 @@ a command inside a shell implies creating a new process, which execution and fin
 will be monitored by its parent’s process. This set of functions will be the key to success
 for your Minishell, so be sure to code the cleanest, simplest program possible.
 
+Builtins: echo, cd, env, setenv, unsetenv and exit.
+
+Bonus:
+	- Signals are handle in the minishell (Ctrl + C and Ctrl + D)
+	- ';' for multiple commandes manage
+	- Check the rights to every executable called (user rights in Path)
+
 						     ##### Road Map #####
 
 # DAY 01 #	
@@ -31,37 +38,38 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 
 # DAY 05 #
 	- Finish all todo and in progress post above (DONE)
-	- Implementing the shell exit properly (IN PROGRESS)
-	- Studying error prompt (IN PROGRESS)
+	- Implementing the shell exit properly (DONE)
+	- Studying error prompt (DONE)
 
 # DAY 06 #
 	- Implementing free function for the char **cmd and input (DONE)
 	- Implementing switch command function (DONE)
-	- Starting function for executable within PATH (DONE/TO BE TESTED)
-
+	- Starting function for executable within PATH (DONE)
+	
 # DAY 07 #
 	- Clean project: reposition functions (DONE)
 	- Implementing final main function (DONE)
 	- Valgrind full test for leak and clear all error and leaks (DONE)
 	
 # DAY 08 #
-	- Implement flag for all builtin functions (IN PROGRESS)
+	- Implement flag for all builtin functions (DONE)
 	- Add $, ~ management (DONE)
-	- Implement signal handler (TODO)
+	- Implement signal handler (DONE)
 
 # DAY 09 #
 	- Solve valgrind error gnl (DONE)
-	- Redo Libft makefile (TODO)
+	- Redo Libft makefile (DONE)
 
 # DAY 10 #
 	- Rewrite of input read function (DONE)
 	- Delete gnl and check leak (DONE)
 
 # DAY 11 #
-	- Implement env builtin with flag (IN PROGRESS)
- 	- Check libft (TODO)
+	- Implement env builtin with flag (DONE)
+ 	- Check libft (DOME)
 	- Finish flag for cd builtin (DONE)
+	
 # DAY 12 #
 	- Check pipe and file input (DONE)
-	- Regulate Shell level env (TODO)
-	- Regulate exec of name similar to existing executable (IN PROGRESS)
+	- Regulate Shell level env (DOME)
+	- Regulate exec of name similar to existing executable (DONE)
