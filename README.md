@@ -8,9 +8,9 @@ for your Minishell, so be sure to code the cleanest, simplest program possible.
 Builtins: echo, cd, env, setenv, unsetenv and exit.
 
 Bonus: <br />
-	- Signals are handle in the minishell (Ctrl + C and Ctrl + D)<br/>                                               
-	- ';' for multiple commandes manage <br />
-	- Check the rights to every executable called (user rights in Path) <br />
+- Signals handlers (Ctrl + C and Ctrl + D) <br />
+- ';' for multiple commandes<br />
+- Check the rights to every executable called (user rights in Path) <br />
 	
 ****************************************************************************************************************************
 						    
