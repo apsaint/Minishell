@@ -68,10 +68,10 @@ Bonus: <br />
 
 # DAY 11 #
 	- Implement env builtin with flag (DONE)
- 	- Check libft (DOME)
+ 	- Check libft (DONE)
 	- Finish flag for cd builtin (DONE)
 	
 # DAY 12 #
 	- Check pipe and file input (DONE)
-	- Regulate Shell level env (DOME)
+	- Regulate Shell level env (DONE)
 	- Regulate exec of name similar to existing executable (DONE)
